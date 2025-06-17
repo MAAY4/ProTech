@@ -1,0 +1,673 @@
+:root {
+    --primary: #215660;
+    --secondary: #FBB040;
+    --accent: #00AEEF;
+    --light: #f8f9fa;
+    --dark: #2c3e50;
+    --success: #2ecc71;
+    --installment: #5b287d;
+    /* لون التقسيط الجديد */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    color: var(--dark);
+    line-height: 1.8;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    position: relative;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotateX(10deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+.card-header {
+    background: linear-gradient(45deg, var(--primary), #1a7b8b);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(30deg);
+    animation: shine 5s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(30deg);
+    }
+
+    100% {
+        transform: translateX(100%) rotate(30deg);
+    }
+}
+
+.card-header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-header p {
+    opacity: 0.9;
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.payment-summary {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    background: var(--light);
+    border-left: 1px solid #eee;
+}
+
+.payment-form {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+}
+
+.card-preview {
+    background: linear-gradient(135deg, #2c3e50, #4a6491);
+    color: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    position: relative;
+    height: 220px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-preview.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #4a6491, #2c3e50);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.card-type {
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 15px 0;
+    word-spacing: 10px;
+    transition: transform 0.3s;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
+.card-holder,
+.card-expiry {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 15px;
+    border-radius: 8px;
+    min-width: 45%;
+}
+
+.card-holder {
+    text-align: right;
+}
+
+.card-holder-label,
+.expiry-label {
+    display: block;
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.card-holder-name,
+.expiry-date {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    transition: transform 0.3s;
+}
+
+.expiry-date {
+    letter-spacing: 1px;
+}
+
+.card-cvv {
+    background: white;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    text-align: right;
+    margin-top: 30px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.card-stripe {
+    height: 45px;
+    background: #000;
+    margin: -25px -25px 20px -25px;
+}
+
+.flip-card {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+.flip-card:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(180deg);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #ddd;
+    animation: fadeIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.total {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 25px 0;
+    padding-top: 15px;
+    border-top: 2px solid var(--accent);
+}
+
+.payment-methods {
+    margin: 25px 0;
+}
+
+.method {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.method::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--accent);
+    transform: translateX(100%);
+    transition: transform 0.3s;
+}
+
+.method:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 174, 239, 0.1);
+}
+
+.method:hover::before {
+    transform: translateX(0);
+}
+
+.method.active {
+    border-color: var(--installment);
+    background: rgba(91, 40, 125, 0.05);
+}
+
+.method.active::before {
+    background: var(--installment);
+    transform: translateX(0);
+}
+
+.method-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 174, 239, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    color: var(--accent);
+    font-size: 20px;
+    transition: all 0.3s;
+}
+
+.method.active .method-icon {
+    background: rgba(91, 40, 125, 0.1);
+    color: var(--installment);
+}
+
+.method-info {
+    flex: 1;
+}
+
+.method-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.method-info p {
+    font-size: 14px;
+    color: #777;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: var(--light);
+    text-align: right;
+}
+
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.2);
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.checkbox-container input {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 17px;
+    background: linear-gradient(45deg, var(--accent), #0087c1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 174, 239, 0.3);
+}
+
+.btn-pay:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 174, 239, 0.4);
+}
+
+.btn-pay:active {
+    transform: translateY(0);
+}
+
+.btn-pay::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(30deg);
+    transition: transform 0.5s;
+}
+
+.btn-pay:hover::after {
+    transform: translateX(100%) rotate(30deg);
+}
+
+.secure-payment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.secure-payment i {
+    color: var(--success);
+    margin-left: 5px;
+}
+
+.coupon-box {
+    display: flex;
+    margin: 20px 0;
+    border: 1px dashed var(--secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(251, 176, 64, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(251, 176, 64, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(251, 176, 64, 0);
+    }
+}
+
+.coupon-input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: rgba(251, 176, 64, 0.1);
+    text-align: right;
+}
+
+.coupon-btn {
+    padding: 0 20px;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.coupon-btn:hover {
+    background: #e09a30;
+}
+
+/* تأثيرات التقسيط */
+.installment-pulse {
+    animation: pulsePurple 2s infinite;
+}
+
+@keyframes pulsePurple {
+    0% {
+        box-shadow: 0 0 0 0 rgba(91, 40, 125, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(91, 40, 125, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(91, 40, 125, 0);
+    }
+}
+
+/* تحسينات للجوال */
+@media (max-width: 768px) {
+    .payment-card {
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    .card-header {
+        padding: 20px 15px;
+    }
+
+    .card-header h1 {
+        font-size: 22px;
+    }
+
+    .card-header p {
+        font-size: 14px;
+    }
+
+    .card-preview {
+        height: 180px;
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .card-number {
+        font-size: 16px;
+        letter-spacing: 1px;
+        word-spacing: 5px;
+        margin: 10px 0;
+    }
+
+    .card-holder,
+    .card-expiry {
+        padding: 6px 10px;
+    }
+
+    .card-holder-name,
+    .expiry-date {
+        font-size: 12px;
+    }
+
+    .card-cvv {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .flip-card {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .payment-summary,
+    .payment-form {
+        padding: 20px;
+        min-width: 100%;
+        border-left: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-control {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .input-icon {
+        left: 10px;
+        font-size: 14px;
+    }
+
+    .btn-pay {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .method {
+        padding: 12px;
+    }
+
+    .method-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+    .method-info h3 {
+        font-size: 16px;
+    }
+
+    .method-info p {
+        font-size: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .summary-item {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        font-size: 14px;
+    }
+
+    .total {
+        font-size: 18px;
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-preview {
+        height: 160px;
+    }
+
+    .card-number {
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .btn-pay,
+    .method,
+    .flip-card,
+    .coupon-btn {
+        min-height: 44px;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        touch-action: manipulation;
+    }
+}

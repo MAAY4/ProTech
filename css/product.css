@@ -1,0 +1,220 @@
+body {
+    font-family: 'Cairo', sans-serif;
+}
+
+.navbar {
+    background-color: #215660;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #fff !important;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #FBB040 !important;
+    text-decoration: underline;
+}
+
+.nav-link.active {
+    color: #FBB040 !important;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #FBB040;
+}
+
+.dropdown-menu {
+    background-color: #fff;
+    border-radius: 8px;
+    border: none;
+}
+
+.dropdown-item {
+    color: #215660;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background-color: #FBB040;
+    color: #fff;
+}
+
+a.text-dark i {
+    color: #fff;
+    transition: 0.3s;
+}
+
+a.text-dark i:hover {
+    color: #FBB040;
+}
+
+.search-box {
+    width: 60%;
+    z-index: 999;
+    border-radius: 8px;
+}
+
+.section-header {
+    text-align: center;
+}
+
+.section-header p {
+    text-align: right;
+    max-width: 100%;
+}
+
+
+.text-main {
+    color: #215660;
+}
+
+.border-main {
+    border: 2px solid #215660;
+    border-radius: 10px;
+}
+
+.filter-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.product-card img {
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.product-card {
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+h5, h6, label {
+    text-align: right;
+}
+
+.btn-details {
+    background-color: #FBB040;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-details:hover {
+    background-color: #e09c36; /* لون أغمق عند الوقوف */
+    text-decoration: none;
+    color: white;
+}
+
+    /* الزر */
+.policy-link {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+    /* خلفية المودال */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* مظللة */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+    /* صندوق المودال */
+.modal-box {
+    background: #fff;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    direction: rtl;
+    color: #333;
+    animation: fadeIn 0.3s ease-in-out;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+    /* زر الإغلاق */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.modal-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #215660;
+    font-weight: bold;
+}
+
+.modal-content {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* ✅ نغيرها لـ left */
+    width: 320px;
+    height: 100vh;
+    background-color: #215660;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* عكس اتجاه الظل */
+    transition: left 0.3s ease-in-out;
+    z-index: 9999;
+    padding: 20px;
+    color: #fff;
+}
+
+.cart-sidebar.open {
+    left: 0; /* ✅ يظهر من اليسار */
+}
+
+
+.cart-items {
+    margin-top: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
