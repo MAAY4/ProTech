@@ -66,7 +66,7 @@ a.text-dark i:hover {
 
 /* Header */
 .hero-slide {
-    background-image: url('../images/background1.jpg');
+    background-image: url('./images/background1.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -75,11 +75,11 @@ a.text-dark i:hover {
 }
 
 .hero-slide-2 {
-    background-image: url('../images/background2.jpg');
+    background-image: url('./images/background2.jpg');
 }
 
 .hero-slide-3 {
-    background-image: url('../images/background3.jpg');
+    background-image: url('./images/background3.jpg');
 }
 
 .hero-slide::before {
