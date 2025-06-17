@@ -266,7 +266,7 @@
 </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="./JS/About Us.js"></script>
+    <script src="./js/About Us.js"></script>
     <script>
     // Toggle Search Box
     const searchBtn = document.getElementById("searchBtn");
@@ -275,61 +275,61 @@
     searchBox.classList.toggle("d-none");
 });
 
-// function openModal() {
-//     document.getElementById("policyModal").style.display = "flex";
-// }
+function openModal() {
+    document.getElementById("policyModal").style.display = "flex";
+}
 
-// function closeModal() {
-//     document.getElementById("policyModal").style.display = "none";
-// }
+function closeModal() {
+    document.getElementById("policyModal").style.display = "none";
+}
 
-// window.onclick = function(event) {
-//     const modal = document.getElementById("policyModal");
-//     if (event.target === modal) {
-//         closeModal();
-//     }
-// }
+window.onclick = function(event) {
+    const modal = document.getElementById("policyModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
 
-//     const cartIcon = document.getElementById('cartIcon');
-//     const cartSidebar = document.getElementById('cartSidebar');
-//     const closeCartBtn = document.getElementById('closeCartBtn');
-//     const cartItems = document.getElementById('cartItems');
-//     const emptyMessage = document.getElementById('emptyMessage');
+    const cartIcon = document.getElementById('cartIcon');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartItems = document.getElementById('cartItems');
+    const emptyMessage = document.getElementById('emptyMessage');
 
-//     cartIcon.onclick = () => {
-//         cartSidebar.classList.add('open');
-//         updateCartView();
-//     };
+    cartIcon.onclick = () => {
+        cartSidebar.classList.add('open');
+        updateCartView();
+    };
 
-//     closeCartBtn.onclick = () => {
-//         cartSidebar.classList.remove('open');
-//     };
+    closeCartBtn.onclick = () => {
+        cartSidebar.classList.remove('open');
+    };
 
-//     function updateCartView() {
-//         const products = JSON.parse(localStorage.getItem('cart')) || [];
-//         cartItems.innerHTML = '';
+    function updateCartView() {
+        const products = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.innerHTML = '';
 
-//         if (products.length > 0) {
-//         emptyMessage.style.display = 'none';
-//         products.forEach(p => {
-//             const item = document.createElement('div');
-//             item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
-//             cartItems.appendChild(item);
-//         });
-//         } else {
-//         emptyMessage.style.display = 'block';
-//         }
-//     }
+        if (products.length > 0) {
+        emptyMessage.style.display = 'none';
+        products.forEach(p => {
+            const item = document.createElement('div');
+            item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
+            cartItems.appendChild(item);
+        });
+        } else {
+        emptyMessage.style.display = 'block';
+        }
+    }
 
-//     function returnToShop() {
-//         window.location.href = 'product.html'; 
-//     }
+    function returnToShop() {
+        window.location.href = 'product.html'; 
+    }
 
-//     function addToCart(product) {
-//         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-//         cart.push(product);
-//         localStorage.setItem('cart', JSON.stringify(cart));
-//     }
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
     // addToCart({ name: 'منتج 1', price: 100 });
     </script>
