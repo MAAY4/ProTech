@@ -290,46 +290,46 @@ window.onclick = function(event) {
     }
 }
 
-    const cartIcon = document.getElementById('cartIcon');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCartBtn = document.getElementById('closeCartBtn');
-    const cartItems = document.getElementById('cartItems');
-    const emptyMessage = document.getElementById('emptyMessage');
+    // const cartIcon = document.getElementById('cartIcon');
+    // const cartSidebar = document.getElementById('cartSidebar');
+    // const closeCartBtn = document.getElementById('closeCartBtn');
+    // const cartItems = document.getElementById('cartItems');
+    // const emptyMessage = document.getElementById('emptyMessage');
 
-    cartIcon.onclick = () => {
-        cartSidebar.classList.add('open');
-        updateCartView();
-    };
+    // cartIcon.onclick = () => {
+    //     cartSidebar.classList.add('open');
+    //     updateCartView();
+    // };
 
-    closeCartBtn.onclick = () => {
-        cartSidebar.classList.remove('open');
-    };
+    // closeCartBtn.onclick = () => {
+    //     cartSidebar.classList.remove('open');
+    // };
 
-    function updateCartView() {
-        const products = JSON.parse(localStorage.getItem('cart')) || [];
-        cartItems.innerHTML = '';
+    // function updateCartView() {
+    //     const products = JSON.parse(localStorage.getItem('cart')) || [];
+    //     cartItems.innerHTML = '';
 
-        if (products.length > 0) {
-        emptyMessage.style.display = 'none';
-        products.forEach(p => {
-            const item = document.createElement('div');
-            item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
-            cartItems.appendChild(item);
-        });
-        } else {
-        emptyMessage.style.display = 'block';
-        }
-    }
+    //     if (products.length > 0) {
+    //     emptyMessage.style.display = 'none';
+    //     products.forEach(p => {
+    //         const item = document.createElement('div');
+    //         item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
+    //         cartItems.appendChild(item);
+    //     });
+    //     } else {
+    //     emptyMessage.style.display = 'block';
+    //     }
+    // }
 
-    function returnToShop() {
-        window.location.href = 'product.html'; 
-    }
+    // function returnToShop() {
+    //     window.location.href = 'product.html'; 
+    // }
 
-    function addToCart(product) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(product);
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
+    // function addToCart(product) {
+    //     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    //     cart.push(product);
+    //     localStorage.setItem('cart', JSON.stringify(cart));
+    // }
 
     // addToCart({ name: 'منتج 1', price: 100 });
     </script>
