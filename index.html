@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PROTECH - شركة مصرية متخصصة في بيع أدوات البناء عالية الجودة بأسعار تنافسية وخدمة توصيل سريعة ودعم فني مميز.">
+    <meta name="keywords" content="PROTECH, أدوات بناء, مواد بناء, مقاولات, متجر أدوات البناء, مصر, معدات البناء">
+    <meta name="author" content="PROTECH Team">
+    <!-- اللون الأساسي للمتصفح على الموبايل (خاصة أندرويد) -->
+    <meta name="theme-color" content="#FBB040">
+    <!-- Social Media: Open Graph (فيسبوك وغيرها) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PROTECH - أدوات البناء بخبرة واحترافية">
+    <meta property="og:description" content="كل ما تحتاجه من أدوات البناء في مكان واحد بجودة عالية وسعر مناسب.">
+    <meta property="og:image" content="https://protech.eg/images/"> <!-- ضع رابط صورة مناسبة -->
+    <meta property="og:url" content="https://protech.eg">
+    <!-- أيقونة الموقع (Favicon) -->
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <title>PROTECH</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
+    <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="#" style="color: #FBB040;">PROTECH</a>
+
+    <!-- Nav Links -->
+    <div class="mx-auto d-none d-lg-block">
+        <ul class="navbar-nav gap-4">
+            <li class="nav-item"><a class="nav-link active">الرئيسية</a></li>
+            <li class="nav-item"><a class="nav-link" href="product.html">المتجر</a></li>
+            <li class="nav-item"><a class="nav-link" href="About.html">من نحن</a></li>
+            <li class="nav-item"><a class="nav-link" href="connect.html">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <!-- Icons -->
+    <div class="d-flex align-items-center gap-3">
+    <div class="dropdown">
+        <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
+            <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
+        </ul>
+    </div>
+
+    <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+    <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
+</div>
+
+<div id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header d-flex justify-content-between align-items-center">
+        <span id="closeCartBtn" style="cursor:pointer;">Close ✕</span>
+        <h5>Shopping cart</h5>
+    </div>
+    <hr>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="emptyMessage" class="empty-message text-center mt-4">
+        <p class="mt-2">لا توجد منتجات في سلة المشتريات.</p>
+        <button class="btn btn-danger" onclick="returnToShop()">Return To Shop</button>
+    </div>
+</div>
+
+
+    </div>
+<!-- Search Box -->
+    <div id="searchBox" class="search-box bg-white px-4 py-3 position-absolute top-100 start-50 translate-middle-x shadow d-none">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="ابحث عن منتج...">
+            <button class="btn btn-primary">بحث</button>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="hero-slide d-flex align-items-center justify-content-center text-center">
+            <div class="container text-white">
+                <h1 class="display-4 fw-bold text-shadow" style="color: #FBB040;">PROTECH — شريكك الأول في أدوات البناء</h1>
+                <p class="lead mt-3">منتجات عالية الجودة تخدم كل مشاريعك باحتراف</p>
+            </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="hero-slide hero-slide-2 d-flex align-items-center justify-content-center text-center">
+            <div class="container text-white">
+                <h1 class="display-4 fw-bold text-shadow" style="color: #FBB040;">كل ما تحتاجه من ادوات في مكان واحد</h1>
+                <p class="lead mt-3">مخزون ضخم – جودة مضمونة – توصيل سريع</p>
+            </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="hero-slide hero-slide-3 d-flex align-items-center justify-content-center text-center">
+            <div class="container text-white">
+                <h1 class="display-4 fw-bold text-shadow" style="color: #FBB040;">اسم تثق به في عالم البناء والإنشاءات</h1>
+                <p class="lead mt-3">نوفر لك أدوات البناء من أفضل العلامات التجارية</p>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</header>
+
+<section class="why-choose-us py-5 bg-light">
+    <div class="container text-center" data-aos="fade-up">
+        <h2 class="mb-4 fw-bold" style="color: #FBB040;">لماذا PROTECH؟</h2>
+        <p class="mb-5 text-muted">نقدم لك الأفضل في عالم أدوات البناء باحترافية عالية وخبرة كبيرة.</p>
+
+        <div class="row g-4">
+        <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="feature-box p-4 shadow-sm rounded">
+            <i class="fas fa-tools fa-2x mb-3 text-main"></i>
+            <h5 class="fw-bold">منتجات عالية الجودة</h5>
+            <p class="text-muted small">نوفر أدوات بناء من أفضل العلامات التجارية، مصممة لتحمّل أقسى الظروف.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+            <div class="feature-box p-4 shadow-sm rounded">
+            <i class="fas fa-shipping-fast fa-2x mb-3 text-main"></i>
+            <h5 class="fw-bold">توصيل سريع وآمن</h5>
+            <p class="text-muted small">نوصلك في أسرع وقت لكل أنحاء الجمهورية مع تغليف احترافي.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="feature-box p-4 shadow-sm rounded">
+            <i class="fas fa-headset fa-2x mb-3 text-main"></i>
+            <h5 class="fw-bold">دعم فني واستشارات</h5>
+            <p class="text-muted small">فريقنا معك خطوة بخطوة من اختيار المنتج حتى تنفيذ المشروع.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
+            <div class="feature-box p-4 shadow-sm rounded">
+            <i class="fas fa-building fa-2x mb-3 text-main"></i>
+            <h5 class="fw-bold">رؤية جديدة لعالم البناء</h5>
+            <p class="text-muted small">نقدّم حلولًا مبتكرة بأفكار حديثة تناسب احتياجات السوق المصري.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Product Categories Section -->
+<section class="product-overview py-5 bg-white" id="products-overview">
+    <div class="container" dir="rtl">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #FBB040;">الاقسام</h2>
+            <p class="fs-5 text-muted">نقدم مجموعة متنوعة من العدد اليدوية والكهربائية ومعدات الحماية</p>
+        </div>
+        <div class="row g-4">
+            <!-- Category 1 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/5.jpg" alt="أدوات يدوية" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">ديسكات قطعية و مناشير طرابيزة</h4>
+            </div>
+            <!-- Category 2 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/2.jpg" alt="أدوات كهربائية" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">أدوات كهربائية</h4>
+            </div>
+            <!-- Category 3 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/3.jpg" alt="معدات أمان" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">ادوات الهواء</h4>
+            </div>
+            <!-- Category 4 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/4.jpg" alt="أدوات دهان" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">أدوات المنزل و الحديقة</h4>
+            </div>
+            <!-- Category 5 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/7.png" alt="أدوات البناء" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">منتجات السلامة</h4>
+            </div>
+            <!-- Category 6 -->
+            <div class="col-md-4 col-sm-6 text-center">
+                <img src="images/6.jpg" alt="اكسسوارات العدد" class="img-fluid mb-3 rounded-circle" style="height: 150px; width: 150px; object-fit: cover;" />
+                <h4 class="text-primary">ادوات يدوية</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-dark text-white pt-5 pb-3">
+    <div class="container">
+        <div class="row">
+
+        <div class="col-md-4 mb-4">
+            <h5 class="fw-bold mb-3 text-warning">PROTECH</h5>
+            <p class="small">
+            شركة PROTECH الرائدة في مجال أدوات البناء تقدم لك منتجات عالية الجودة بأسعار تنافسية.
+            </p>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h5 class="fw-bold mb-3 text-warning">روابط مهمة</h5>
+            <ul class="list-unstyled">
+            <li><a href="index.html" class="text-white text-decoration-none d-block mb-2">الرئيسية</a></li>
+            <li><a href="product.html" class="text-white text-decoration-none d-block mb-2">المنتجات</a></li>
+            <li><a href="About.html" class="text-white text-decoration-none d-block mb-2">من نحن</a></li>
+            <li><a href="connect.html" class="text-white text-decoration-none d-block mb-2">اتصل بنا</a></li>
+            <li><a href="log in-up.html" class="text-white text-decoration-none d-block mb-2">انشاء حساب / تسجيل دخول</a></li>
+            </ul>
+            <p><button class="policy-link" onclick="openModal()">سياسة الاسترجاع والشحن</button></p>
+                <div class="modal-overlay" id="policyModal">
+                <div class="modal-box">
+                    <span class="close-btn" onclick="closeModal()">×</span>
+                    <div class="modal-title">سياسة الاسترجاع والشحن</div>
+                    <div class="modal-content">
+                        يمكن استرجاع المنتجات خلال 14 يومًا من تاريخ الاستلام بشرط أن تكون بحالتها الأصلية.  
+                        يتم الشحن خلال 2-5 أيام عمل حسب المحافظة ومكان التسليم.
+                    </div>
+                </div>
+                </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h5 class="fw-bold mb-3 text-warning">تواصل معنا</h5>
+            <p class="mb-2"><i class="bi bi-geo-alt-fill text-warning me-2"></i>الإسكندرية، برج العرب</p>
+            <p class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i>01289086556</p>
+            <p class="mb-2"><i class="bi bi-envelope-fill text-warning me-2"></i>protech@gmail.com</p>
+            <div class="mt-3">
+            <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-5"></i></a>
+            <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-5"></i></a>
+            <a href="#" class="text-white me-3"><i class="bi bi-whatsapp fs-5"></i></a>
+            </div>
+        </div>
+
+        </div>
+
+        <hr class="border-light" />
+
+        <div class="text-center small">
+        © 2025 جميع الحقوق محفوظة لشركة <span class="text-warning">PROTECH</span>
+        </div>
+    </div>
+</footer>
+
+<a href="https://wa.me/201001234567" class="whatsapp-float" target="_blank">
+    <i class="bi bi-whatsapp"></i>
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    padding: 15px 17px;
+    font-size: 22px;
+    z-index: 999;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.whatsapp-float:hover {
+    background-color: #1ebe5b;
+    text-decoration: none;
+}
+</style>
+
+
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({
+    duration: 1000, 
+    once: true,     
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Toggle Search Box
+    const searchBtn = document.getElementById("searchBtn");
+    const searchBox = document.getElementById("searchBox");
+    searchBtn.addEventListener("click", () => {
+    searchBox.classList.toggle("d-none");
+});
+
+function openModal() {
+    document.getElementById("policyModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("policyModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("policyModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+    const cartIcon = document.getElementById('cartIcon');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartItems = document.getElementById('cartItems');
+    const emptyMessage = document.getElementById('emptyMessage');
+
+    cartIcon.onclick = () => {
+        cartSidebar.classList.add('open');
+        updateCartView();
+    };
+
+    closeCartBtn.onclick = () => {
+        cartSidebar.classList.remove('open');
+    };
+
+    function updateCartView() {
+        const products = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.innerHTML = '';
+
+        if (products.length > 0) {
+        emptyMessage.style.display = 'none';
+        products.forEach(p => {
+            const item = document.createElement('div');
+            item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
+            cartItems.appendChild(item);
+        });
+        } else {
+        emptyMessage.style.display = 'block';
+        }
+    }
+
+    function returnToShop() {
+        window.location.href = 'product.html'; 
+    }
+
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // addToCart({ name: 'منتج 1', price: 100 });
+
+let cart = [];
+
+  // تحميل السلة من localStorage إن وجدت
+  if (localStorage.getItem("cartItems")) {
+    cart = JSON.parse(localStorage.getItem("cartItems"));
+    updateCartDisplay();
+  }
+
+  // عند الضغط على أي عنصر عنده كلاس add-to-cart
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault(); // منع الانتقال من الرابط
+
+      const name = button.getAttribute('data-name');
+      const price = parseFloat(button.getAttribute('data-price'));
+      const code = button.getAttribute('data-code');
+      const image = button.getAttribute('data-image');
+
+      const existing = cart.find(item => item.code === code);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, code, image, qty: 1 });
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      updateCartDisplay();
+    });
+  });
+
+  // تحديث واجهة السلة
+  function updateCartDisplay() {
+    const container = document.querySelector('.shopping-cart-body');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      container.innerHTML = '<p class="text-white px-3">لا توجد منتجات في سلة المشتريات.</p>';
+      return;
+    }
+
+    cart.forEach(item => {
+      container.innerHTML += `
+        <div class="d-flex align-items-center p-2 border-bottom text-white">
+          <img src="${item.image}" alt="${item.name}" width="50" class="me-2 rounded">
+          <div>
+            <h6 class="mb-0">${item.name}</h6>
+            <small>الكمية: ${item.qty} - الكود: ${item.code}</small><br>
+            <small class="text-warning fw-bold">${item.price} ج.م</small>
+          </div>
+        </div>
+      `;
+    });
+  }
+</script>
+
+</body>
+</html>

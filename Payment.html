@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدفع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+
+<body>
+    <div class="payment-card">
+        <div class="card-header">
+            <h1>إتمام عملية الدفع</h1>
+            <p>تجربة دفع آمنة وسريعة مع أحدث أنظمة الحماية</p>
+        </div>
+
+        <div class="card-body">
+            <div class="payment-form">
+                <div class="card-preview" id="cardPreview">
+                    <div class="card-front">
+                        <div class="card-type">
+                            <i class="far fa-credit-card"></i>
+                        </div>
+                        <div class="card-number">
+                            •••• •••• •••• 4242
+                        </div>
+                        <div class="card-details">
+                            <div class="card-holder">
+                                <span class="card-holder-label">حامل البطاقة</span>
+                                <span class="card-holder-name">محمد أحمد</span>
+                            </div>
+                            <div class="card-expiry">
+                                <span class="expiry-label">انتهاء الصلاحية</span>
+                                <span class="expiry-date">12/25</span>
+                            </div>
+                        </div>
+                        <button class="flip-card" onclick="flipCard()">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-stripe"></div>
+                        <div class="card-cvv">
+                            CVV: ••••
+                        </div>
+                        <button class="flip-card" onclick="flipCard()">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardNumber">رقم البطاقة</label>
+                    <div style="position: relative;">
+                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456"
+                            maxlength="19">
+                        <div class="input-icon">
+                            <i class="far fa-credit-card"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardName">اسم حامل البطاقة</label>
+                    <div style="position: relative;">
+                        <input type="text" id="cardName" class="form-control" placeholder="كما هو مدون على البطاقة">
+                        <div class="input-icon">
+                            <i class="far fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="expiryDate">تاريخ الانتهاء</label>
+                        <div style="position: relative;">
+                            <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                            <div class="input-icon">
+                                <i class="far fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="cvv">رمز الأمان (CVV)</label>
+                        <div style="position: relative;">
+                            <input type="text" id="cvv" class="form-control" placeholder="•••">
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="saveCard">
+                    <label for="saveCard">حفظ بيانات البطاقة لعمليات شراء لاحقة</label>
+                </div>
+
+                <button type="submit" class="btn-pay" id="payButton">
+                    <i class="fas fa-lock"></i> تأكيد الدفع
+                </button>
+
+                <div class="secure-payment">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>مدفوعات آمنة ومشفرة</span>
+                </div>
+            </div>
+
+            <div class="payment-summary">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">ملخص الطلب</h2>
+
+                <div class="summary-item">
+                    <span>سعر المنتج</span>
+                    <span>249.00 L.E</span>
+                </div>
+
+                <div class="summary-item">
+                    <span>خصم</span>
+                    <span style="color: var(--success);">-24.90 L.E</span>
+                </div>
+
+                <div class="summary-item">
+                    <span>الشحن</span>
+                    <span>15.00 L.E</span>
+                </div>
+
+                <div class="coupon-box">
+                    <input type="text" class="coupon-input" placeholder="كود الخصم">
+                    <button class="coupon-btn">تطبيق</button>
+                </div>
+
+                <div class="total">
+                    <span>المجموع النهائي</span>
+                    <span>239.10 L.E</span>
+                </div>
+
+                <div class="payment-methods">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">طرق الدفع البديلة</h3>
+
+                    <div class="method active" onclick="selectPayment('installment')">
+                        <div class="method-icon" style="background: rgba(91, 40, 125, 0.1); color: #5b287d;">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>الدفع بالتقسيط</h3>
+                            <p>قسط مشترياتك على عدة أشهر</p>
+                        </div>
+                    </div>
+
+                    <div class="method" onclick="selectPayment('cash')">
+                        <div class="method-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>الدفع عند الاستلام</h3>
+                            <p>ادفع عند استلام المنتج</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="js/payment.js"></script>
+</body>
+</html>

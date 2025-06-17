@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;">
+    <meta name="csrf-token" content="${CSRF_TOKEN}">
+    
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>لوحة التحكم - ProTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- ========================================= -->
+    <!--            القائمة الجانبية              -->
+    <!-- ========================================= -->
+    <div class="sidebar-overlay"></div>
+        <div class="sidebar">
+            <div class="logo">
+                <img src="images/logo.png" alt="ProTech Logo">
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>الرئيسية</span>
+                </li>
+                <li data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>المنتجات</span>
+                </li>
+                <li data-section="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>الطلبات</span>
+                </li>
+                <li data-section="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span>الإشعارات</span>
+                </li>
+                <li data-section="users">
+                    <i class="fas fa-users"></i>
+                    <span>المسؤولين</span>
+                </li>
+            </ul>
+        </div>
+        <!-- ========================================= -->
+        <!--          End of Sidebar Section           -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            المحتوى الرئيسي                -->
+        <!-- ========================================= -->
+        <!-- ========================================= -->
+        <!--            شريط التنقل العلوي            -->
+        <!-- ========================================= -->
+        <div class="main-content">
+            <!-- Right side of top-bar -->
+            <div class="top-bar">
+                <div class="top-bar-right">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <button class="search-icon-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div class="search-dropdown">
+                            <input type="text" placeholder="بحث...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left side of top-bar -->
+                <div class="top-bar-left">
+                    <div class="notifications-dropdown">
+                        <div class="notification-icon-wrapper">
+                            <i class="fas fa-bell notification-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </div>
+                        <div class="notifications-content">
+                            <div class="notifications-header">
+                                <h4>
+                                    <i class="fas fa-bell"></i>
+                                    الإشعارات
+                                </h4>
+                            </div>
+                            <div class="notifications-body"></div>
+                            <a href="#notifications" class="view-all-notifications">
+                                عرض كل الإشعارات 
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="admin-dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown">
+                            <img src="images/logo.png" alt="Admin">
+                            <span>محمد أحمد</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item text-danger" href="#">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    تسجيل الخروج
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <!-- ========================================= -->
+        <!--           End of Top Bar Section          -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            لوحة المعلومات الرئيسية       -->
+        <!-- ========================================= -->
+        <!-- Statistics Card Row -->
+        <section id="dashboard" class="content-section active">
+            <div class="stats-cards-row row g-3 mb-4">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card stats-sales">
+                            <div class="icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="info">
+                                <div class="value">
+                                    15,350 ج.م
+                                </div>
+                                <div class="label">
+                                    المبيعات اليومية
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card stats-orders">
+                            <div class="icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="info">
+                                <div class="value">
+                                    24
+                                </div>
+                                <div class="label">
+                                    الطلبات الجديدة
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card stats-products">
+                        <div class="icon"><i class="fas fa-box"></i></div>
+                        <div class="info">
+                            <div class="value">186</div>
+                            <div class="label">المنتجات النشطة</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card stats-customers">
+                        <div class="icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="info">
+                            <div class="value">38</div>
+                            <div class="label">العملاء الجدد</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Chart -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">إحصائيات المبيعات والطلبات</h5>
+                            <div class="chart-controls d-flex gap-3">
+                                <select class="form-select year-select" style="width: 120px;">
+
+                                </select>
+                                <select class="form-select month-select" style="width: 140px;">
+                                    <option value="all" selected>كل الشهور</option>
+                                    <option value="0">يناير</option>
+                                    <option value="1">فبراير</option>
+                                    <option value="2">مارس</option>
+                                    <option value="3">أبريل</option>
+                                    <option value="4">مايو</option>
+                                    <option value="5">يونيو</option>
+                                    <option value="6">يوليو</option>
+                                    <option value="7">أغسطس</option>
+                                    <option value="8">سبتمبر</option>
+                                    <option value="9">أكتوبر</option>
+                                    <option value="10">نوفمبر</option>
+                                    <option value="11">ديسمبر</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height: 400px">
+                            <canvas id="statsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-products">
+                <h4>المنتجات الأكثر رواجاً</h4>
+                <div class="products-slider">
+                    <!-- Products will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+        <!-- ========================================= -->
+        <!--          End of Dashboard Section         -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            قسم إدارة المنتجات            -->
+        <!-- ========================================= -->
+        <section id="products" class="content-section">
+            <div class="section-header">
+                <h3>إدارة المنتجات</h3>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-plus"></i> إضافة منتج
+                </button>
+            </div>
+            <div class="products-table">
+
+            </div>
+        </section>
+        <!-- ========================================= -->
+        <!--           End of Products Section         -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            قسم إدارة الطلبات             -->
+        <!-- ========================================= -->
+        <section id="orders" class="content-section">
+            <h3>إدارة الطلبات</h3>
+            <div class="orders-table table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th data-label="order">الطلب</th>
+                            <th data-label="client">العميل</th>
+                            <th data-label="total">الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="id">#001</td>
+                            <td data-label="name">أحمد محمد</td>
+                            <td data-label="price">1500 ج.م</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- ========================================= -->
+        <!--            End of Orders Section          -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            قسم الإشعارات                 -->
+        <!-- ========================================= -->
+        <section id="notifications" class="content-section">
+            <div class="section-header">
+                <h3>الإشعارات</h3>
+            </div>
+            <div class="notifications-list">
+
+            </div>
+        </section>
+        <!-- ========================================= -->
+        <!--         End of Notifications Section      -->
+        <!-- ========================================= -->
+
+        <!-- ========================================= -->
+        <!--            قسم إدارة المسؤولين           -->
+        <!-- ========================================= -->
+        <section id="users" class="content-section">
+            <div class="section-header">
+                <h3>إدارة المسؤولين</h3>
+                <div class="admin-actions">
+                    <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#pendingInvitesModal">
+                        <i class="fas fa-clock"></i>
+                        <span>الدعوات المعلقة</span>
+                        <span class="badge bg-primary pending-invites-count">2</span>
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inviteUserModal">
+                        <i class="fas fa-user-plus"></i> دعوة مسؤول جديد
+                    </button>
+                </div>
+            </div>
+                <div class="users-table table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th data-label="name">الاسم</th>
+                            <th data-label="email">البريد الالكتروني</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="name">محمد</td>
+                            <td data-label="email">admin@domain.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- ========================================= -->
+        <!--             End of Users Section          -->
+        <!-- ========================================= -->
+    </div>
+    <!-- ========================================= -->
+    <!--          End of Main Content Area         -->
+    <!-- ========================================= -->
+
+    <!-- ========================================= -->
+    <!--            النوافذ المنبثقة               -->
+    <!-- ========================================= -->
+
+    <!-- نافذة إضافة منتج جديد -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة منتج جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label class="form-label">صورة المنتج</label>
+                            <input type="file" class="form-control" name="image" accept="image/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">اسم المنتج</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الطراز</label>
+                            <input type="text" class="form-control" name="model" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">القسم</label>
+                            <select class="form-select" name="category" required>
+                                <option value="">اختر القسم</option>
+                                <option value="معدات كهربائية">معدات كهربائية</option>
+                                <option value="عدد يدوية">عدد يدوية</option>
+                                <option value="معدات السلامة">معدات السلامة</option>
+                                <option value="أدوات القياس">أدوات القياس</option>
+                                <option value="معدات اللحام">معدات اللحام</option>
+                                <option value="ملحقات">ملحقات</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">تفاصيل المنتج</label>
+                            <textarea class="form-control" name="details" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">السعر</label>
+                            <input type="number" class="form-control" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">المخزون</label>
+                            <input type="number" class="form-control" name="stock" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" form="addProductForm" class="btn btn-primary">إضافة المنتج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل المنتج -->
+    <div class="modal fade" id="editProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تعديل المنتج</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm" class="edit-product-form needs-validation" novalidate>
+                        <input type="hidden" name="productId">
+                        <div class="mb-3">
+                            <label class="form-label">الصورة الحالية</label>
+                            <div class="current-image">
+                                <img src="" alt="صورة المنتج" id="currentProductImage" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">تغيير الصورة</label>
+                            <input type="file" class="form-control" name="image" accept="image/*">
+                            <div class="invalid-feedback">يرجى اختيار صورة صالحة</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">اسم المنتج</label>
+                            <input type="text" class="form-control" name="name" required minlength="3">
+                            <div class="invalid-feedback">يرجى إدخال اسم المنتج (3 أحرف على الأقل)</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الطراز</label>
+                            <input type="text" class="form-control" name="model" required>
+                            <div class="invalid-feedback">يرجى إدخال طراز المنتج</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">القسم</label>
+                            <select class="form-select" name="category" required>
+                                <option value="">اختر القسم</option>
+                                <option value="معدات كهربائية">معدات كهربائية</option>
+                                <option value="عدد يدوية">عدد يدوية</option>
+                                <option value="معدات السلامة">معدات السلامة</option>
+                                <option value="أدوات القياس">أدوات القياس</option>
+                                <option value="معدات اللحام">معدات اللحام</option>
+                                <option value="ملحقات">ملحقات</option>
+                            </select>
+                            <div class="invalid-feedback">يرجى اختيار قسم المنتج</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">تفاصيل المنتج</label>
+                            <textarea class="form-control" name="details" rows="3" required minlength="10"></textarea>
+                            <div class="invalid-feedback">يرجى إدخال تفاصيل المنتج (10 أحرف على الأقل)</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">السعر</label>
+                            <input type="number" class="form-control" name="price" required min="0" step="0.01">
+                            <div class="invalid-feedback">يرجى إدخال سعر صحيح</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">المخزون</label>
+                            <input type="number" class="form-control" name="stock" required min="0">
+                            <div class="invalid-feedback">يرجى إدخال كمية صحيحة</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary save-edit-btn" form="editProductForm">حفظ التغييرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة دعوة مستخدم جديد -->
+    <div class="modal fade" id="inviteUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">دعوة مستخدم جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="inviteUserForm">
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" form="inviteUserForm" class="btn btn-primary">إرسال الدعوة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قالب جدول الدعوات المعلقة -->
+    <div class="modal fade" id="pendingInvitesModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-clock me-2"></i>
+                        الدعوات المعلقة
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>تاريخ الدعوة</th>
+                                    <th>وقت الإرسال</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                        <div class="empty-invites text-center text-muted d-none">
+                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                            <p>لا توجد دعوات معلقة حالياً</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========================================= -->
+    <!--               End of Modals               -->
+    <!-- ========================================= -->
+
+    <!-- ========================================= -->
+    <!--            قوالب الصفحة                  -->
+    <!-- ========================================= -->
+
+    <!-- قالب تفاصيل الطلب -->
+    <template id="orderDetailsTemplate">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="orderDetailsModalLabel">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        تفاصيل الطلب #<span class="order-id"></span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4 mb-4">
+                        <!-- Customer Info -->
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-user me-2"></i>
+                                        معلومات العميل
+                                    </h6>
+                                </div>
+                                <div class="card-body customer-info">
+                                    <p><strong>الاسم:</strong> <span class="customer-name"></span></p>
+                                    <p><strong>الهاتف:</strong> <span class="customer-phone"></span></p>
+                                    <p><strong>العنوان:</strong> <span class="customer-address"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Order Info -->
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        معلومات الطلب
+                                    </h6>
+                                </div>
+                                <div class="card-body order-info">
+                                    <p><strong>رقم الطلب:</strong> #<span class="order-number"></span></p>
+                                    <p><strong>تاريخ الطلب:</strong> <span class="order-date"></span></p>
+                                    <p><strong>الحالة:</strong> <span class="badge bg-info order-status"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Products Table -->
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-box me-2"></i>
+                                المنتجات المطلوبة
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover products-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-label="product">المنتج</th>
+                                            <th data-label="section">القسم</th>
+                                            <th data-label="price">السعر</th>
+                                            <th data-label="quantity">الكمية</th>
+                                            <th data-label="total">الإجمالي</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="products-table-body">
+ -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="table-active">
+                                            <td data-label="total" colspan="4" class="text-start"><strong>الإجمالي</strong></td>
+                                            <td data-label="total" class="total-amount"><strong></strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب حالة الطلب -->
+    <template id="orderStatusTemplate">
+        <div class="status-buttons d-grid gap-2">
+            <button type="button" class="btn btn-outline-warning status-btn" data-status="قيد المراجعة">
+                <i class="fas fa-clock me-1"></i>
+                قيد المراجعة
+            </button>
+            <button type="button" class="btn btn-outline-success status-btn" data-status="تم الشحن">
+                <i class="fas fa-truck me-1"></i>
+                تم الشحن
+            </button>
+            <button type="button" class="btn btn-outline-danger status-btn" data-status="ملغي">
+                <i class="fas fa-times-circle me-1"></i>
+                ملغي
+            </button>
+        </div>
+    </template>
+
+    <!-- قالب الفاتورة -->
+    <template id="invoiceTemplate">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-invoice me-2"></i>
+                        فاتورة طلب #<span class="order-id"></span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="invoice-container">
+                        <div class="invoice-header">
+                            <img src="images/logo.png" alt="ProTech Logo" class="invoice-logo">
+                            <h2 class="invoice-title">فاتورة طلب</h2>
+                            <p class="invoice-date"></p>
+                        </div>
+                        
+                        <div class="invoice-info">
+                            <div class="invoice-info-section">
+                                <h4>معلومات العميل</h4>
+                                <p><strong>الاسم:</strong> <span class="customer-name"></span></p>
+                                <p><strong>الهاتف:</strong> <span class="customer-phone"></span></p>
+                                <p><strong>العنوان:</strong> <span class="customer-address"></span></p>
+                            </div>
+                            <div class="invoice-info-section">
+                                <h4>معلومات الطلب</h4>
+                                <p><strong>رقم الطلب:</strong> <span class="order-number"></span></p>
+                                <p><strong>تاريخ الطلب:</strong> <span class="order-date"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="invoice-products">
+                            <table class="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th>المنتج</th>
+                                        <th>الكمية</th>
+                                        <th>السعر</th>
+                                        <th>الإجمالي</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="products-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="invoice-total">
+                            <span class="total-label">الإجمالي:</span>
+                            <span class="total-amount"></span> جنيه
+                        </div>
+
+                        <div class="invoice-footer">
+                            <p>شكراً لثقتكم في ProTech</p>
+                            <p>للاستفسار: 0123456789</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <button type="button" class="btn btn-primary print-invoice-btn">
+                        <i class="fas fa-print me-2"></i>
+                        طباعة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب بطاقة المنتج -->
+    <template id="productCardTemplate">
+        <div class="product-card">
+            <div class="rank-badge">#<span class="rank"></span></div>
+            <div class="product-image">
+                <img src="" alt="">
+            </div>
+            <div class="product-info">
+                <h5></h5>
+                <p class="category"></p>
+                <div class="product-stats">
+                    <span class="stat sales"><i class="fas fa-shopping-cart"></i>المبيعات: <span class="sales-count"></span></span>
+                    <span class="stat stock"><i class="fas fa-box"></i>المخزون: <span class="stock-count"></span></span>
+                </div>
+                <div class="product-meta">
+                    <div class="price"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب بطاقة إدارة المنتج -->
+    <template id="productManagementCardTemplate">
+        <div class="product-management-card">
+            <div class="product-image">
+                <img src="" alt="">
+                <div class="product-actions">
+                    <button type="button" class="edit-product" title="تعديل المنتج">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" class="delete-product" title="حذف المنتج">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h5></h5>
+                <div class="model"></div>
+                <div class="category"></div>
+                <div class="details"></div>
+                <div class="product-stats">
+                    <span class="stat stock"><i class="fas fa-box"></i>المخزون: <span class="stock-count"></span></span>
+                </div>
+                <div class="product-meta">
+                    <div class="price"></div>
+                </div>
+                <div class="status"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب عنصر الإشعار -->
+    <template id="notificationItemTemplate">
+        <div class="notification-item">
+            <div class="notification-content">
+                <h6></h6>
+                <p></p>
+                <small></small>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب شريط النجاح -->
+    <template id="successRibbonTemplate">
+        <div class="success-ribbon">
+            <i class="fas fa-check-circle"></i>
+            <span class="message"></span>
+        </div>
+    </template>
+
+    <!-- قالب رسالة التنبيه -->
+    <template id="toastTemplate">
+        <div class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب صف الدعوة المعلقة -->
+    <template id="pendingInviteRowTemplate">
+        <tr data-invite-id="">
+            <td>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-user-circle text-secondary fs-4"></i>
+                    <div class="fw-medium name"></div>
+                </div>
+            </td>
+            <td class="email"></td>
+            <td class="date"></td>
+            <td class="time"></td>
+            <td>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-secondary resend-invite" title="إعادة إرسال الدعوة">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger cancel-invite" title="إلغاء الدعوة">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+    <!-- قالب عنصر منتج في الطلب -->
+    <template id="orderProductItemTemplate">
+        <div class="order-product-item">
+            <div class="product-preview">
+                <img src="" alt="" class="product-image">
+                <div class="product-info">
+                    <span class="product-name"></span>
+                    <span class="product-category"></span>
+                    <span class="product-quantity"></span>
+                    <span class="product-price"></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب صف الطلب -->
+    <template id="orderRowTemplate">
+        <tr data-order-id="">
+            <td class="order-id"></td>
+            <td class="customer-name"></td>
+            <td class="customer-phone"></td>
+            <td class="customer-address"></td>
+            <td>
+                <div class="order-products">
+
+                </div>
+            </td>
+            <td class="order-total"></td>
+            <td class="order-date"></td>
+            <td class="order-status-cell">
+
+            </td>
+            <td>
+                <button class="btn btn-sm btn-primary me-1 view-order-details-btn" title="عرض تفاصيل الطلب">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-success print-order-invoice-btn" title="طباعة الفاتورة">
+                    <i class="fas fa-print"></i>
+                </button>
+            </td>
+        </tr>
+    </template>
+
+    <!-- قالب جدول الطلبات -->
+    <template id="ordersTableTemplate">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>رقم الطلب</th>
+                    <th>العميل</th>
+                    <th>الهاتف</th>
+                    <th>العنوان</th>
+                    <th>المنتجات</th>
+                    <th>الإجمالي</th>
+                    <th>التاريخ</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </template>
+
+    <!-- قالب نافذة تعديل المستخدم -->
+    <template id="editUserModalTemplate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تعديل بيانات المسؤول</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="edit-user-form">
+                        <input type="hidden" name="userId">
+                        <div class="mb-3">
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رقم الهاتف</label>
+                            <input type="tel" class="form-control" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الدور</label>
+                            <select class="form-select" name="role" required>
+                                <option value="مدير عام">مدير عام</option>
+                                <option value="مشرف مبيعات">مشرف مبيعات</option>
+                                <option value="مشرف مخزن">مشرف مخزن</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الصلاحيات</label>
+                            <div class="permissions-checkboxes">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة المنتجات">
+                                    <label class="form-check-label">إدارة المنتجات</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة الطلبات">
+                                    <label class="form-check-label">إدارة الطلبات</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة المسؤولين">
+                                    <label class="form-check-label">إدارة المسؤولين</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary edit-user-submit-btn">حفظ التعديل</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- قالب جدول المسؤولين -->
+    <template id="usersTableTemplate">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>الهاتف</th>
+                    <th>الدور</th>
+                    <th>الصلاحيات</th>
+                    <th>تاريخ الانضمام</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </template>
+
+    <!-- قالب صف المسؤول -->
+    <template id="userRowTemplate">
+        <tr data-user-id="">
+            <td class="user-name"></td>
+            <td class="user-email"></td>
+            <td class="user-phone"></td>
+            <td class="user-role"></td>
+            <td>
+                <div class="permissions-badges">
+
+                </div>
+            </td>
+            <td class="user-join-date"></td>
+            <td><span class="badge user-status"></span></td>
+            <td>
+                <button class="btn btn-sm btn-primary edit-user-btn">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger delete-user-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/admin-dashboard.js"></script>
+</body>
+</html>

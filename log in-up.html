@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="css/log in-up.css">
+<title>تسجيل الدخول / إنشاء حساب</title>
+<link rel="icon" href="images/logo.png" type="image/x-icon">
+</head>
+<body>
+    <section id="account">
+        <div class="login">
+            <h1 id="logtitle">تسجيل الدخول</h1>
+            <form class="login-form">
+                <input type="email" placeholder="البريد الالكتروني" name="email" required />
+                <input type="password" placeholder="كلمة المرور" name="password" required />
+                <a href="#">نسيت كلمة المرور؟</a>
+                <button class="btn-login" type="submit">دخول</button>
+            </form>
+        </div>
+        <div class="signup">
+            <h1>إنشاء حساب</h1>
+            <form class="signup-form">
+                <input type="text" placeholder="الاسم كامل" name="user" required />
+                <input type="email" placeholder="البريد الالكتروني" name="email" required />
+                <input type="password" placeholder="كلمة المرور" name="password" required />
+                <button class="btn-signup" type="submit">تسجيل</button>
+            </form>
+        </div>
+        <div id="slide">
+            <h2 id="slidetitle">مرحباً بعودتك</h2>
+            <p id="slidetext">ليس لديك حساب؟</p>
+            <button id="slidebtn">انشاء حساب</button>
+        </div>
+    </section>
+    <script src="js/log in-up.js"></script>
+</body>
+</html>

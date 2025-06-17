@@ -1,0 +1,163 @@
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تفاصيل المنتج</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <style>
+        body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        }
+
+        .product-details {
+        max-width: 1200px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        }
+
+        .product-image img {
+        max-width: 500px;
+        width: 100%;
+        border-radius: 10px;
+        border: 2px solid #00AEEF;
+        }
+
+        .product-info {
+        flex: 1;
+        }
+
+        .product-info h2 {
+        color: #215660;
+        margin-bottom: 20px;
+        }
+
+        .product-info ul {
+        list-style: disc;
+        padding-right: 20px;
+        color: #444;
+        }
+
+        .product-info ul li {
+        margin-bottom: 10px;
+        font-size: 16px;
+        }
+
+        .pay-link {
+        display: inline-block;
+        margin-top: 25px;
+        background-color: #FBB040;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease;
+        }
+
+        .pay-link:hover {
+        background-color: #e09c36;
+        }
+
+        .quantity-box {
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0 5px;
+        }
+
+        .quantity-box button {
+        border: none;
+        background: none;
+        font-size: 20px;
+        color: #215;
+        }
+
+        .btn-buy {
+        background-color: #1E2C84;
+        color: white;
+        }
+
+        .btn-cart {
+        background-color: #00BEE8;
+        color: white;
+        }
+
+        .btn-cart:hover, .btn-buy:hover {
+        opacity: 0.9;
+}
+
+    </style>
+    </head>
+    <body>
+
+    <div class="product-details">
+        <div class="product-image">
+        <img src="images/product1.jpg" alt="منشار كهربائي">
+        </div>
+
+        <div class="product-info">
+        <h2>منشار كهربائي - TOTAL TOOLS</h2>
+        <ul>
+            <li>قوة المحرك: 1200 وات</li>
+            <li>الجهد الكهربائي: 220 فولت</li>
+            <li>مثالي لقطع الخشب والمعادن</li>
+            <li>تصميم مريح ومقبض غير قابل للانزلاق</li>
+            <li>يشمل ضمان لمدة سنة</li>
+        </ul>
+        <p class="fw-bold text-main">LE 1700.00</p>
+        <div class="container text-end">
+        <div class="d-flex align-items-center flex-wrap gap-3 justify-content-end mt-4">
+
+            <!-- الكمية -->
+            <div class="d-flex align-items-center gap-2">
+            <label class="form-label mb-0">الكمية:</label>
+            <div class="quantity-box">
+                <button onclick="decrease()">−</button>
+                <span id="quantity">1</span>
+                <button onclick="increase()">+</button>
+            </div>
+            </div>
+
+            <!-- الأزرار -->
+            <button class="btn btn-buy px-4" onclick="location.href='Payment.html'">اشترِ الآن</button>
+            <button class="btn btn-cart px-4" onclick="location.href='cart.html'">أضف إلى السلة</button>
+        </div>
+</div>
+
+        </div>
+    </div>
+
+    <script>
+        let quantity = 1;
+        const quantityDisplay = document.getElementById("quantity");
+
+        function increase() {
+        quantity++;
+        quantityDisplay.innerText = quantity;
+        }
+
+        function decrease() {
+        if (quantity > 1) {
+            quantity--;
+            quantityDisplay.innerText = quantity;
+        }
+        }
+    </script>
+    </body>
+    </html>
