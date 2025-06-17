@@ -253,7 +253,7 @@
     background-color: #25D366;
     color: white;
     border-radius: 50%;
-    padding: 15px 17px;
+    padding: 15px 15px;
     font-size: 22px;
     z-index: 999;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -269,67 +269,67 @@
     <script src="./JS/About Us.js"></script>
     <script>
     // Toggle Search Box
-    const searchBtn = document.getElementById("searchBtn");
-    const searchBox = document.getElementById("searchBox");
-    searchBtn.addEventListener("click", () => {
-    searchBox.classList.toggle("d-none");
-});
+//     const searchBtn = document.getElementById("searchBtn");
+//     const searchBox = document.getElementById("searchBox");
+//     searchBtn.addEventListener("click", () => {
+//     searchBox.classList.toggle("d-none");
+// });
 
-function openModal() {
-    document.getElementById("policyModal").style.display = "flex";
-}
+// function openModal() {
+//     document.getElementById("policyModal").style.display = "flex";
+// }
 
-function closeModal() {
-    document.getElementById("policyModal").style.display = "none";
-}
+// function closeModal() {
+//     document.getElementById("policyModal").style.display = "none";
+// }
 
-window.onclick = function(event) {
-    const modal = document.getElementById("policyModal");
-    if (event.target === modal) {
-        closeModal();
+// window.onclick = function(event) {
+//     const modal = document.getElementById("policyModal");
+//     if (event.target === modal) {
+//         closeModal();
+//     }
+// }
+
+    const cartIcon = document.getElementById('cartIcon');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartItems = document.getElementById('cartItems');
+    const emptyMessage = document.getElementById('emptyMessage');
+
+    cartIcon.onclick = () => {
+        cartSidebar.classList.add('open');
+        updateCartView();
+    };
+
+    closeCartBtn.onclick = () => {
+        cartSidebar.classList.remove('open');
+    };
+
+    function updateCartView() {
+        const products = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.innerHTML = '';
+
+        if (products.length > 0) {
+        emptyMessage.style.display = 'none';
+        products.forEach(p => {
+            const item = document.createElement('div');
+            item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
+            cartItems.appendChild(item);
+        });
+        } else {
+        emptyMessage.style.display = 'block';
+        }
     }
-}
 
-    // const cartIcon = document.getElementById('cartIcon');
-    // const cartSidebar = document.getElementById('cartSidebar');
-    // const closeCartBtn = document.getElementById('closeCartBtn');
-    // const cartItems = document.getElementById('cartItems');
-    // const emptyMessage = document.getElementById('emptyMessage');
+    function returnToShop() {
+        window.location.href = 'product.html'; 
+    }
 
-    // cartIcon.onclick = () => {
-    //     cartSidebar.classList.add('open');
-    //     updateCartView();
-    // };
-
-    // closeCartBtn.onclick = () => {
-    //     cartSidebar.classList.remove('open');
-    // };
-
-    // function updateCartView() {
-    //     const products = JSON.parse(localStorage.getItem('cart')) || [];
-    //     cartItems.innerHTML = '';
-
-    //     if (products.length > 0) {
-    //     emptyMessage.style.display = 'none';
-    //     products.forEach(p => {
-    //         const item = document.createElement('div');
-    //         item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
-    //         cartItems.appendChild(item);
-    //     });
-    //     } else {
-    //     emptyMessage.style.display = 'block';
-    //     }
-    // }
-
-    // function returnToShop() {
-    //     window.location.href = 'product.html'; 
-    // }
-
-    // function addToCart(product) {
-    //     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    //     cart.push(product);
-    //     localStorage.setItem('cart', JSON.stringify(cart));
-    // }
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
     // addToCart({ name: 'منتج 1', price: 100 });
     </script>
