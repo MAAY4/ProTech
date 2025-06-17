@@ -393,7 +393,7 @@ a.text-dark i:hover {
 }
 
     /* صندوق المودال */
-/* .modal-box {
+.modal-box {
     background: #fff;
     border-radius: 15px;
     width: 90%;
@@ -409,7 +409,7 @@ a.text-dark i:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
-} */
+}
 
     /* زر الإغلاق */
 .close-btn {
