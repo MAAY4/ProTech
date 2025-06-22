@@ -192,6 +192,17 @@ a.text-dark i:hover {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
+    .card:hover {
+        transform: translateY(-10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
     /* الزر */
 .policy-link {
     cursor: pointer;
