@@ -396,20 +396,24 @@ a.text-dark i:hover {
 
     .floating-element {
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
-        animation: float 15s infinite linear;
-    }
+        background-size: cover;
+        background-position: center;
+        animation: floatUp 10s infinite linear;
+        opacity: 0.6;
+}
 
-    @keyframes float {
+    @keyframes floatUp {
         0% {
-            transform: translateY(0) rotate(0deg);
+            transform: translateY(0);
+            opacity: 0.6;
         }
-
         100% {
-            transform: translateY(-1000px) rotate(720deg);
+            transform: translateY(-100vh);
+            opacity: 0;
         }
     }
+
 
     /* أنماط جديدة للإخطارات */
     .error-message {
@@ -599,5 +603,3 @@ a.text-dark i:hover {
             width: 90%;
         }
     }
-
-    
