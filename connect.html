@@ -70,16 +70,11 @@
 
     <header>
         <div class="floating-elements">
-            <div class="floating-element"
-                style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;">
-            </div>
-            <div class="floating-element"
-                style="width: 150px; height: 150px; top: 60%; left: 70%; animation-delay: 3s;"></div>
-            <div class="floating-element" style="width: 80px; height: 80px; top: 30%; left: 50%; animation-delay: 6s;">
-            </div>
-            <div class="floating-element"
-                style="width: 120px; height: 120px; top: 70%; left: 30%; animation-delay: 9s;"></div>
-        </div>
+        <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; background-image: url('images/THT15246.png');"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-delay: 3s; background-image: url('images/THT1776P.png');"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 30%; left: 50%; animation-delay: 6s; background-image: url('images/TG107136.png');"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 70%; left: 30%; animation-delay: 9s; background-image: url('images/TDLI1221.png');"></div>
+    </div>
         <h1>اتصل بنا</h1>
         <p>فريقنا سعيد بالإجابة على أي أسئلة قد تكون لديكم حول كيفية مساعدتكم. إذا كنتم مهتمين باستخدام خدماتنا،
             واذا قمتم بملء النموذج أدناه، سيتواصل معكم أحد أعضاء
@@ -132,13 +127,13 @@
                 <form id="contactForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">الاسم*</label>
+                            <label for="name">الاسم ثلاثي*</label>
                             <input type="text" id="name" name="name" required>
                             <div class="error-message" id="nameError">الرجاء إدخال الاسم</div>
                         </div>
                         <div class="form-group">
-                            <label for="email">البريد الإلكتروني*</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email">
                             <div class="error-message" id="emailError">الرجاء إدخال بريد إلكتروني صحيح</div>
                         </div>
                     </div>
@@ -147,7 +142,7 @@
                         <div class="form-group">
                             <label for="phone">رقم الهاتف*</label>
                             <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}"
-                                title="يجب أن يتكون رقم الهاتف من 10 إلى 15 رقمًا" required>
+                                title="يجب أن يكون رقم الهاتف صحيح" required>
                             <div class="error-message" id="phoneError">الرجاء إدخال رقم هاتف صحيح</div>
                         </div>
                     </div>
