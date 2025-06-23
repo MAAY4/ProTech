@@ -29,32 +29,36 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
     <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="#" style="color: #FBB040;">PROTECH</a>
+    <a class="navbar-brand fw-bold" href="index.html" style="color: #FBB040;">PROTECH</a>
+    <!-- زر التوجّل (الهامبرجر) الخاص ببووتستراب باللون الأبيض -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تبديل القائمة" style="background-color: #fff;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Nav Links -->
-    <div class="mx-auto d-none d-lg-block">
-        <ul class="navbar-nav gap-4">
+    <!-- روابط النافبار + الأيقونات داخل collapse -->
+    <div class="collapse navbar-collapse mx-auto" id="mainNavbar">
+        <ul class="navbar-nav gap-4 mx-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link active">الرئيسية</a></li>
             <li class="nav-item"><a class="nav-link" href="product.html">المتجر</a></li>
             <li class="nav-item"><a class="nav-link" href="About.html">من نحن</a></li>
             <li class="nav-item"><a class="nav-link" href="connect.html">تواصل معنا</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="log in-up.html"><i class="fas fa-user me-2"></i>تسجيل الدخول/إنشاء حساب</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="cartIconCollapse"><i class="fas fa-shopping-cart me-2"></i>سلة المشتريات</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="searchBtnCollapse"><i class="fas fa-search me-2"></i>بحث</a></li>
         </ul>
     </div>
-
-    <!-- Icons -->
-    <div class="d-flex align-items-center gap-3">
-    <div class="dropdown">
-        <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
-            <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
-        </ul>
+    <!-- الأيقونات خارج التوجل مينيو وتظهر فقط في الشاشات الكبيرة -->
+    <div class="d-none d-lg-flex align-items-center gap-3">
+        <div class="dropdown">
+            <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
+                <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
+            </ul>
+        </div>
+        <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
     </div>
-
-    <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
-    <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
-</div>
 
 <div id="cartSidebar" class="cart-sidebar">
     <div class="cart-header d-flex justify-content-between align-items-center">
@@ -172,64 +176,67 @@
         </div>
         <div class="container py-5">
             <div class="row g-4 justify-content-center">
-                <!-- كارت 1 -->
-                <div class="col-12 col-md-6 mb-4">
+                <!-- الصف الأول: 3 كروت -->
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card text-center shadow-sm h-100">
-                        <img src="images/5.jpg" class="card-img-top img-fluid mx-auto mt-4" alt="ديسكات قطعية" style="object-fit: cover; max-height: 200px;">
+                        <div class="card-img-container">
+                            <img src="images/5.jpg" class="card-img-top" alt="ديسكات قطعية و مناشير طرابيزة">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title text-primary">ديسكات قطعية و مناشير طرابيزة</h5>
                         </div>
                     </div>
                 </div>
-
-                <!-- كارت 2 -->
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card text-center shadow-sm h-100">
-                        <img src="images/2.jpg" class="card-img-top img-fluid mx-auto mt-4" alt="أدوات كهربائية" style="object-fit: cover; max-height: 200px;">
+                        <div class="card-img-container">
+                            <img src="images/2.jpg" class="card-img-top" alt="أدوات كهربائية">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title text-primary">أدوات كهربائية</h5>
                         </div>
                     </div>
                 </div>
-
-                <!-- كارت 3 -->
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card text-center shadow-sm h-100">
-                        <img src="images/3.jpg" class="card-img-top img-fluid mx-auto mt-4" alt="ادوات الهواء" style="object-fit: cover; max-height: 200px;">
+                        <div class="card-img-container">
+                            <img src="images/3.jpg" class="card-img-top" alt="ادوات الهواء">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title text-primary">ادوات الهواء</h5>
                         </div>
                     </div>
                 </div>
-
-                <!-- كارت 4 -->
-                <div class="col-12 col-md-6 mb-4">
-                <div class="card text-center shadow-sm h-100">
-                    <img src="images/4.jpg" class="card-img-top img-fluid mx-auto mt-4" alt="أدوات المنزل و الحديقة" style="object-fit: cover; max-height: 200px;">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">أدوات المنزل و الحديقة</h5>
+                <!-- الصف الثاني: 3 كروت -->
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card text-center shadow-sm h-100">
+                        <div class="card-img-container">
+                            <img src="images/4.jpg" class="card-img-top" alt="أدوات المنزل و الحديقة">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">أدوات المنزل و الحديقة</h5>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-                <!-- كارت 5 -->
-                <div class="col-12 col-md-6 mb-4">
-                <div class="card text-center shadow-sm h-100">
-                    <img src="images/7.png" class="card-img-top img-fluid mx-auto mt-4" alt="منتجات السلامة" style="object-fit: cover; max-height: 200px;">
-                    <div class="card-body">
-                    <h5 class="card-title text-primary">منتجات السلامة</h5>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card text-center shadow-sm h-100">
+                        <div class="card-img-container">
+                            <img src="images/7.jpg" class="card-img-top" alt="منتجات السلامة">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">منتجات السلامة</h5>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-                <!-- كارت 6 -->
-                <div class="col-12 col-md-6 mb-4">
-                <div class="card text-center shadow-sm h-100">
-                    <img src="images/6.jpg" class="card-img-top img-fluid mx-auto mt-4" alt="ادوات يدوية" style="object-fit: cover; max-height: 200px;">
-                    <div class="card-body">
-                    <h5 class="card-title text-primary">ادوات يدوية</h5>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card text-center shadow-sm h-100">
+                        <div class="card-img-container">
+                            <img src="images/6.jpg" class="card-img-top" alt="ادوات يدوية">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">ادوات يدوية</h5>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -243,7 +250,7 @@
         <div class="col-md-4 mb-4">
             <h5 class="fw-bold mb-3 text-warning">PROTECH</h5>
             <p class="small">
-            شركة PROTECH الرائدة في مجال أدوات البناء تقدم لك منتجات عالية الجودة بأسعار تنافسية.
+                شركة PROTECH الرائدة في مجال أدوات البناء تقدم لك منتجات عالية الجودة بأسعار تنافسية.
             </p>
         </div>
 
@@ -444,6 +451,56 @@ let cart = [];
       `;
     });
   }
+
+  // ربط أيقونات التوجل مينيو بوظائفها الأصلية في الشاشات الصغيرة
+  const cartIconCollapse = document.getElementById('cartIconCollapse');
+  const searchBtnCollapse = document.getElementById('searchBtnCollapse');
+  if (cartIconCollapse) {
+    cartIconCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (cartSidebar) cartSidebar.classList.add('open');
+      // إغلاق القائمة المنسدلة بعد الفتح
+      const navbarCollapse = document.getElementById('mainNavbar');
+      if (navbarCollapse) {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+        bsCollapse.hide();
+      }
+      updateCartView();
+    });
+  }
+  if (searchBtnCollapse) {
+    searchBtnCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (searchBox) searchBox.classList.toggle('d-none');
+      // إغلاق القائمة المنسدلة بعد الفتح
+      const navbarCollapse = document.getElementById('mainNavbar');
+      if (navbarCollapse) {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+        bsCollapse.hide();
+      }
+    });
+  }
+
+document.addEventListener('DOMContentLoaded', function() {
+  // تعريف المتغيرات مرة واحدة فقط
+  const cartSidebar = document.getElementById('cartSidebar');
+  const searchBox = document.getElementById('searchBox');
+  // إغلاق السايدبار أو مربع البحث عند الضغط خارجهم
+  document.addEventListener('mousedown', function(e) {
+    // إغلاق السايدبار
+    if (cartSidebar && cartSidebar.classList.contains('open')) {
+      if (!cartSidebar.contains(e.target) && !e.target.closest('#cartIcon') && !e.target.closest('#cartIconCollapse')) {
+        cartSidebar.classList.remove('open');
+      }
+    }
+    // إغلاق مربع البحث
+    if (searchBox && !searchBox.classList.contains('d-none')) {
+      if (!searchBox.contains(e.target) && !e.target.closest('#searchBtn') && !e.target.closest('#searchBtnCollapse')) {
+        searchBox.classList.add('d-none');
+      }
+    }
+  });
+});
 </script>
 
 </body>
