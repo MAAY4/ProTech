@@ -256,4 +256,51 @@ document.addEventListener('DOMContentLoaded', function () {
             targetContainer.classList.add('visible');
         });
     });
+
+    // ربط أيقونات التوجل مينيو بوظائفها الأصلية في الشاشات الصغيرة
+    const cartIconCollapse = document.getElementById('cartIconCollapse');
+    const searchBtnCollapse = document.getElementById('searchBtnCollapse');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const searchBox = document.getElementById('searchBox');
+    if (cartIconCollapse) {
+        cartIconCollapse.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (cartSidebar) cartSidebar.classList.add('open');
+            // إغلاق القائمة المنسدلة بعد الفتح
+            const navbarCollapse = document.getElementById('mainNavbar');
+            if (navbarCollapse && window.bootstrap) {
+                const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+                bsCollapse.hide();
+            }
+            if (typeof updateCartView === 'function') updateCartView();
+        });
+    }
+    if (searchBtnCollapse) {
+        searchBtnCollapse.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (searchBox) searchBox.classList.toggle('d-none');
+            // إغلاق القائمة المنسدلة بعد الفتح
+            const navbarCollapse = document.getElementById('mainNavbar');
+            if (navbarCollapse && window.bootstrap) {
+                const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+                bsCollapse.hide();
+            }
+        });
+    }
+
+    // إغلاق السايدبار أو مربع البحث عند الضغط خارجهم
+    document.addEventListener('mousedown', function(e) {
+        // إغلاق السايدبار
+        if (cartSidebar && cartSidebar.classList.contains('open')) {
+            if (!cartSidebar.contains(e.target) && !e.target.closest('#cartIcon') && !e.target.closest('#cartIconCollapse')) {
+                cartSidebar.classList.remove('open');
+            }
+        }
+        // إغلاق مربع البحث
+        if (searchBox && !searchBox.classList.contains('d-none')) {
+            if (!searchBox.contains(e.target) && !e.target.closest('#searchBtn') && !e.target.closest('#searchBtnCollapse')) {
+                searchBox.classList.add('d-none');
+            }
+        }
+    });
 });
