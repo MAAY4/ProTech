@@ -18,31 +18,38 @@
 <nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
     <div class="container">
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="#" style="color: #FBB040;">PROTECH</a>
+    <a class="navbar-brand fw-bold" href="index.html" style="color: #FBB040;">PROTECH</a>
 
-    <!-- Nav Links -->
-    <div class="mx-auto d-none d-lg-block">
-        <ul class="navbar-nav gap-4">
+    <!-- زر التوجّل (الهامبرجر) الخاص ببووتستراب باللون الأبيض -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تبديل القائمة" style="background-color: #fff;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- روابط النافبار + الأيقونات داخل collapse -->
+    <div class="collapse navbar-collapse mx-auto" id="mainNavbar">
+        <ul class="navbar-nav gap-4 mx-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
             <li class="nav-item"><a class="nav-link" href="product.html">المتجر</a></li>
             <li class="nav-item"><a class="nav-link" href="About.html">من نحن</a></li>
             <li class="nav-item"><a class="nav-link active">تواصل معنا</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="log in-up.html"><i class="fas fa-user me-2"></i>تسجيل الدخول/إنشاء حساب</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="cartIconCollapse"><i class="fas fa-shopping-cart me-2"></i>سلة المشتريات</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="searchBtnCollapse"><i class="fas fa-search me-2"></i>بحث</a></li>
         </ul>
     </div>
 
-    <!-- Icons -->
-    <div class="d-flex align-items-center gap-3">
-    <div class="dropdown">
-        <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
-            <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
-        </ul>
+    <!-- الأيقونات خارج التوجل مينيو وتظهر فقط في الشاشات الكبيرة -->
+    <div class="d-none d-lg-flex align-items-center gap-3">
+        <div class="dropdown">
+            <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
+                <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
+            </ul>
+        </div>
+        <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
     </div>
-
-    <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
-    <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
-</div>
 
 <div id="cartSidebar" class="cart-sidebar">
     <div class="cart-header d-flex justify-content-between align-items-center">
