@@ -192,18 +192,44 @@ a.text-dark i:hover {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-    .card:hover {
-        transform: translateY(-10px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-    }
+.card,
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(33,86,96,0.06);
+    border: 1.5px solid #e6e6e6;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.card:hover,
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(33,86,96,0.13);
+    border-color: #FBB040;
+}
 
-    .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.card-body {
+    padding: 1.2rem 1rem 1.1rem 1rem;
+}
 
-    /* الزر */
+.card-title {
+    color: #215660;
+    font-weight: 700;
+    font-size: 1.18rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.card-text,
+.card-body p {
+    color: #5a5a5a;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
 .policy-link {
     cursor: pointer;
     color: white;
@@ -214,7 +240,6 @@ a.text-dark i:hover {
     font-size: 16px;
 }
 
-    /* خلفية المودال */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -228,7 +253,6 @@ a.text-dark i:hover {
     z-index: 1000;
 }
 
-    /* صندوق المودال */
 .modal-box {
     background: #fff;
     border-radius: 15px;
@@ -247,7 +271,6 @@ a.text-dark i:hover {
     to { opacity: 1; transform: scale(1); }
 }
 
-    /* زر الإغلاق */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -292,9 +315,52 @@ a.text-dark i:hover {
     left: 0; /* ✅ يظهر من اليسار */
 }
 
-
 .cart-items {
     margin-top: 20px;
     max-height: 60vh;
     overflow-y: auto;
+}
+
+.card-img-container {
+    flex: 0 0 65%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 4px;
+}
+
+.product-card .card-img-top,
+.card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    transition: height 0.3s;
+}
+
+@media (max-width: 768px) {
+    .card-img-container {
+        height: 120px;
+        padding: 5px;
+    }
+
+    .card,
+    .product-card {
+        min-height: 120px;
+    }
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .card,
+    .product-card {
+        max-width: 100%;
+    }
 }
