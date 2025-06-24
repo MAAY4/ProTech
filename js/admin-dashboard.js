@@ -9,6 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * تنسيق الأرقام الكبيرة (تحويل 1000 إلى 1K)
+ */
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num.toString();
+}
+
+/**
  * نظام التنقل الرئيسي
  */
 function initializeNavigationSystem() {
@@ -76,24 +89,27 @@ function initializeDashboard() {
     initializeStatisticsCards();
     // تهيئة المنتجات الرائجة
     initializeTrendingProducts();
+    // تفعيل التمرير بالسحب للمنتجات الرائجة
+    initializeProductsScroll();
 }
 
 // دالة تهيئة البطاقات الإحصائية
 function initializeStatisticsCards() {
     const stats = {
-        sales: { value: '15,350', trend: '+15', type: 'currency' },
-        orders: { value: '24', trend: '+8', type: 'number' },
-        products: { value: '186', trend: '+12', type: 'number' },
-        customers: { value: '38', trend: '+5', type: 'number' }
+        sales: { value: 15350, trend: '+15', type: 'currency' },
+        orders: { value: 2450, trend: '+8', type: 'number' },
+        products: { value: 1860, trend: '+12', type: 'number' },
+        customers: { value: 38700, trend: '+5', type: 'number' }
     };
 
     Object.entries(stats).forEach(([key, data]) => {
         const card = document.querySelector(`.stats-${key} .value`);
         if (!card) return;
 
+        const formattedNumber = formatNumber(data.value);
         const formattedValue = data.type === 'currency' 
-            ? `${data.value} ج.م` 
-            : data.value;
+            ? `${formattedNumber} ج.م` 
+            : formattedNumber;
 
         const trendIcon = parseInt(data.trend) >= 0 ? '▲' : '▼';
         const trendClass = parseInt(data.trend) >= 0 ? 'text-success' : 'text-danger';
@@ -248,6 +264,14 @@ function initializeStatsChart() {
     years?.addEventListener('change', () => updateChartData(currentChart, years.value, months.value));
     months?.addEventListener('change', () => updateChartData(currentChart, years.value, months.value));
 
+    // إضافة مستمع حدث لزر تحميل Excel
+    const downloadBtn = document.getElementById('downloadExcelBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            downloadChartDataAsExcel(currentChart);
+        });
+    }
+
     // تحديث الرسم البياني عند تغيير حجم النافذة
     let resizeTimeout;
     window.addEventListener('resize', () => {
@@ -271,6 +295,96 @@ function initializeStatsChart() {
             }
         }, 250);
     });
+}
+
+function downloadChartDataAsExcel(chart) {
+    const downloadBtn = document.getElementById('downloadExcelBtn');
+
+    if (!chart) {
+        showToast('error', 'لا توجد بيانات لتحميلها');
+        return;
+    }
+
+    if (typeof XLSX === 'undefined') {
+        showToast('error', 'مكتبة تحميل Excel غير متاحة. يرجى تحديث الصفحة.');
+        return;
+    }
+
+    // Prevent duplicate downloads
+    if (downloadBtn.disabled) return;
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+
+    // --- Data Preparation ---
+    const { labels, datasets } = chart.data;
+    const salesData = datasets[0].data;
+    const ordersData = datasets[1].data;
+    const year = document.querySelector('.year-select').value;
+    const monthSelect = document.querySelector('.month-select');
+    const month = monthSelect.value;
+    const monthName = month !== 'all' ? monthSelect.options[monthSelect.selectedIndex].textContent : '';
+
+    let data = [];
+    let reportTitle = "";
+    let headers = [];
+
+    if (month === 'all') {
+        reportTitle = `تقرير المبيعات والطلبات السنوي لعام ${year}`;
+        headers = ["الشهر", "إجمالي المبيعات (ج.م)", "إجمالي الطلبات"];
+        data.push(headers);
+        labels.forEach((label, index) => {
+            data.push([label, salesData[index] || 0, ordersData[index] || 0]);
+        });
+        const totalSales = salesData.reduce((a, b) => a + b, 0);
+        const totalOrders = ordersData.reduce((a, b) => a + b, 0);
+        data.push([]);
+        data.push(["الإجمالي السنوي", totalSales, totalOrders]);
+    } else {
+        reportTitle = `تقرير المبيعات والطلبات اليومي لشهر ${monthName} ${year}`;
+        headers = ["اليوم", "المبيعات (ج.م)", "الطلبات"];
+        data.push(headers);
+        labels.forEach((label, index) => {
+            data.push([`${label} ${monthName}`, salesData[index] || 0, ordersData[index] || 0]);
+        });
+        const totalSales = salesData.reduce((a, b) => a + b, 0);
+        const totalOrders = ordersData.reduce((a, b) => a + b, 0);
+        data.push([]);
+        data.push(["الإجمالي الشهري", totalSales, totalOrders]);
+    }
+
+    // --- Worksheet Creation (Simplified) ---
+    const wb = XLSX.utils.book_new();
+    
+    // Add title row, a blank row, then the data
+    const finalSheetData = [[reportTitle], []].concat(data);
+    
+    const ws = XLSX.utils.aoa_to_sheet(finalSheetData);
+    ws['!props'] = { rtl: true }; // Set sheet to RTL
+
+    // Auto-fit columns for better readability
+    const colWidths = data[0]?.map((_, i) => ({
+        wch: data.reduce((w, r) => Math.max(w, r[i] ? r[i].toString().length + 2 : 10), 10)
+    }));
+    if (colWidths) {
+        ws['!cols'] = colWidths;
+    }
+    
+    // Merge title cell
+    if(data[0] && data[0].length > 1) {
+        ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: data[0].length - 1 } }];
+    }
+
+    // --- Download ---
+    XLSX.utils.book_append_sheet(wb, ws, "تقرير المبيعات");
+    const fileName = `Sales_Report_${year}_${month === 'all' ? 'Annual' : monthName}.xlsx`;
+    XLSX.writeFile(wb, fileName);
+    
+    setTimeout(() => {
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '<i class="fas fa-file-excel"></i> تحميل التقارير';
+    }, 1000);
+
+    showToast('success', 'تم بدء تحميل التقرير بنجاح');
 }
 
 function updateChartData(chart, year, month) {
@@ -303,6 +417,8 @@ function generateRandomData(count, min, max) {
         Math.floor(Math.random() * (max - min + 1)) + min
     );
 }
+
+
 // =================== Dashboard Item End =====================
 
 
@@ -317,7 +433,7 @@ function initializeTrendingProducts() {
             category: 'معدات كهربائية',
             price: 1200,
             stock: 50,
-            sales: 120,
+            sales: 1520,
             rank: 1
         },
         {
@@ -327,7 +443,7 @@ function initializeTrendingProducts() {
             image: 'images/logo.png',
             category: 'معدات كهربائية',
             price: 2500,
-            stock: 35,
+            stock: 23000,
             sales: 95,
             rank: 2
         },
@@ -352,6 +468,17 @@ function initializeTrendingProducts() {
             stock: 20,
             sales: 65,
             rank: 4
+        },
+        {
+            id: 5,
+            name: 'شاكوش ثقيل',
+            model: 'HR-4000',
+            image: 'images/logo.png',
+            category: 'معدات ثقيلة',
+            price: 3200,
+            stock: 20,
+            sales: 65,
+            rank: 5
         }
     ];
 
@@ -371,8 +498,8 @@ function initializeTrendingProducts() {
         clone.querySelector('.product-image img').alt = product.name;
         clone.querySelector('h5').textContent = product.name;
         clone.querySelector('.category').textContent = product.category;
-        clone.querySelector('.sales-count').textContent = product.sales;
-        clone.querySelector('.stock-count').textContent = product.stock;
+        clone.querySelector('.sales-count').textContent = formatNumber(product.sales);
+        clone.querySelector('.stock-count').textContent = formatNumber(product.stock);
         clone.querySelector('.price').textContent = `${product.price} جنيه`;
 
         container.appendChild(clone);
@@ -417,21 +544,86 @@ function initializeProductsScroll() {
 
 
 // =================== Products Item Start ===================
+// Global flag to track if products section has been initialized
+let productsInitialized = false;
+
+/**
+ * إعادة تعيين حالة تهيئة المنتجات
+ */
+function resetProductsInitialization() {
+    productsInitialized = false;
+}
+
 /**
  * نظام إدارة المنتجات
  */
 function initializeProducts() {
+    // منع التهيئة المتكررة
+    if (productsInitialized) {
+        return;
+    }
+
     // تهيئة نموذج إضافة المنتج
     const addForm = document.getElementById('addProductForm');
     if (addForm) {
-        addForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleAddProduct(this);
+        // إزالة أي مستمعي أحداث سابقين لتجنب التكرار
+        const newForm = addForm.cloneNode(true);
+        addForm.parentNode.replaceChild(newForm, addForm);
+        
+        // إضافة مستمع الحدث الجديد مع منع التكرار
+        let isSubmitting = false;
+        newForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // منع السلوك الافتراضي للنموذج
+            e.stopPropagation(); // منع انتشار الحدث
+            
+            // منع التقديم المتكرر
+            if (isSubmitting) {
+                return false;
+            }
+            
+            // التحقق من صحة النموذج
+            if (this.checkValidity()) {
+                isSubmitting = true;
+                
+                // تعطيل زر الإرسال لمنع التكرار
+                const submitButton = this.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
+                }
+                
+                // معالجة إضافة المنتج
+                handleAddProduct(this);
+                
+                // إعادة تفعيل الزر بعد فترة
+                setTimeout(() => {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'إضافة المنتج';
+                    }
+                    isSubmitting = false;
+                }, 2000);
+                
+            } else {
+                this.classList.add('was-validated');
+                showToast('error', 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح');
+            }
+        });
+    }
+
+    // إضافة مستمع حدث لإعادة تعيين النموذج عند إغلاق المودال
+    const addProductModal = document.getElementById('addProductModal');
+    if (addProductModal) {
+        addProductModal.addEventListener('hidden.bs.modal', function() {
+            resetAddProductForm();
         });
     }
 
     // تحميل المنتجات الحالية
     loadProductsGrid();
+    
+    // تعيين العلم لتجنب التهيئة المتكررة
+    productsInitialized = true;
 }
 
 function loadProductsGrid() {
@@ -483,8 +675,24 @@ function loadProductsGrid() {
 }
 
 function createProductCard(product) {
-    if (!product || !product.name || !product.model || !product.category || isNaN(product.price) || isNaN(product.stock)) {
-        console.error('Invalid product data:', product);
+    // تحسين التحقق من البيانات
+    if (!product) {
+        console.error('Product object is null or undefined');
+        return null;
+    }
+
+    // التحقق من وجود جميع البيانات المطلوبة
+    const requiredFields = ['name', 'model', 'category', 'price', 'stock'];
+    const missingFields = requiredFields.filter(field => {
+        const value = product[field];
+        if (field === 'price' || field === 'stock') {
+            return value === null || value === undefined || isNaN(value) || value < 0;
+        }
+        return !value || (typeof value === 'string' && value.trim() === '');
+    });
+
+    if (missingFields.length > 0) {
+        console.error('Invalid product data - missing or invalid fields:', missingFields, product);
         return null;
     }
 
@@ -497,34 +705,83 @@ function createProductCard(product) {
     const card = template.content.cloneNode(true);
     const cardElement = card.querySelector('.product-management-card');
 
-    // تعيين بيانات المنتج
-    cardElement.dataset.productId = product.id;
-    cardElement.querySelector('.product-image img').src = product.image;
-    cardElement.querySelector('.product-image img').alt = product.name;
-    cardElement.querySelector('h5').textContent = product.name;
-    cardElement.querySelector('.model').textContent = `الطراز: ${product.model}`;
-    cardElement.querySelector('.category').textContent = product.category;
-    cardElement.querySelector('.details').textContent = product.details;
-    cardElement.querySelector('.stock-count').textContent = product.stock;
-    cardElement.querySelector('.price').textContent = `${product.price} جنيه`;
+    // تعيين بيانات المنتج مع التحقق من الأمان
+    cardElement.dataset.productId = product.id || Date.now();
+    
+    const imageElement = cardElement.querySelector('.product-image img');
+    if (imageElement) {
+        imageElement.src = product.image || 'images/logo.png';
+        imageElement.alt = product.name || 'صورة المنتج';
+    }
+
+    const nameElement = cardElement.querySelector('h5');
+    if (nameElement) {
+        nameElement.textContent = product.name || 'منتج بدون اسم';
+    }
+
+    const modelElement = cardElement.querySelector('.model');
+    if (modelElement) {
+        modelElement.textContent = `الطراز: ${product.model || 'غير محدد'}`;
+    }
+
+    const categoryElement = cardElement.querySelector('.category');
+    if (categoryElement) {
+        categoryElement.textContent = product.category || 'غير محدد';
+    }
+
+    const detailsElement = cardElement.querySelector('.details');
+    if (detailsElement) {
+        detailsElement.textContent = product.details || 'لا توجد تفاصيل';
+    }
+
+    const stockElement = cardElement.querySelector('.stock-count');
+    if (stockElement) {
+        stockElement.textContent = product.stock || 0;
+    }
+
+    const priceElement = cardElement.querySelector('.price');
+    if (priceElement) {
+        priceElement.textContent = `${product.price || 0} جنيه`;
+    }
 
     const status = cardElement.querySelector('.status');
-    status.textContent = product.stock > 0 ? 'متوفر' : 'غير متوفر';
-    status.classList.add(product.stock > 0 ? 'available' : 'unavailable');
+    if (status) {
+        const isAvailable = (product.stock || 0) > 0;
+        status.textContent = isAvailable ? 'متوفر' : 'غير متوفر';
+        status.className = `status ${isAvailable ? 'available' : 'unavailable'}`;
+    }
 
-    // إضافة مستمعي الأحداث للأزرار
-    cardElement.querySelector('.edit-product').addEventListener('click', () => editProduct(product.id));
-    cardElement.querySelector('.delete-product').addEventListener('click', () => deleteProduct(product.id));
+    // إضافة مستمعي الأحداث للأزرار مع التحقق من الأمان
+    const editButton = cardElement.querySelector('.edit-product');
+    if (editButton) {
+        editButton.addEventListener('click', () => editProduct(product.id));
+    }
+
+    const deleteButton = cardElement.querySelector('.delete-product');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', () => deleteProduct(product.id));
+    }
 
     return cardElement;
 }
 
 function addNewProductToGrid(productCard, productData) {
+    if (!productCard) {
+        console.error('Product card is null or undefined');
+        return;
+    }
+
     let productsGrid = document.querySelector('.products-grid');
     if (!productsGrid) {
         productsGrid = document.createElement('div');
         productsGrid.className = 'products-grid';
-        document.querySelector('.products-table').appendChild(productsGrid);
+        const productsTable = document.querySelector('.products-table');
+        if (productsTable) {
+            productsTable.appendChild(productsGrid);
+        } else {
+            console.error('Products table container not found');
+            return;
+        }
     }
 
     // إضافة البطاقة الجديدة فقط
@@ -532,10 +789,15 @@ function addNewProductToGrid(productCard, productData) {
     productCard.style.transform = 'translateY(20px)';
     productsGrid.appendChild(productCard);
 
-    
-    const savedProducts = JSON.parse(sessionStorage.getItem('products') || '[]');
-    savedProducts.push(productData);
-    sessionStorage.setItem('products', JSON.stringify(savedProducts));
+    // حفظ البيانات في sessionStorage
+    try {
+        const savedProducts = JSON.parse(sessionStorage.getItem('products') || '[]');
+        savedProducts.push(productData);
+        sessionStorage.setItem('products', JSON.stringify(savedProducts));
+    } catch (error) {
+        console.error('Error saving product to sessionStorage:', error);
+        showToast('error', 'خطأ في حفظ بيانات المنتج');
+    }
 
     // تفعيل التأثير الحركي
     requestAnimationFrame(() => {
@@ -730,20 +992,79 @@ function handleEditSubmitCustom(e, modalEl, form) {
  * معالجة إضافة منتج جديد
  */
 function handleAddProduct(form) {
+    // التحقق من صحة النموذج أولاً
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return false;
+    }
+
     const formData = new FormData(form);
+
+    // التحقق من البيانات قبل إنشاء المنتج
+    const name = formData.get('name')?.trim();
+    const model = formData.get('model')?.trim();
+    const category = formData.get('category')?.trim();
+    const details = formData.get('details')?.trim();
+    const price = parseFloat(formData.get('price'));
+    const stock = parseInt(formData.get('stock'));
+
+    // التحقق من صحة البيانات
+    if (!name || name.length < 3) {
+        showToast('error', 'يرجى إدخال اسم المنتج (3 أحرف على الأقل)');
+        return false;
+    }
+
+    if (!model || model.length < 2) {
+        showToast('error', 'يرجى إدخال طراز المنتج');
+        return false;
+    }
+
+    if (!category) {
+        showToast('error', 'يرجى اختيار قسم المنتج');
+        return false;
+    }
+
+    if (!details || details.length < 10) {
+        showToast('error', 'يرجى إدخال تفاصيل المنتج (10 أحرف على الأقل)');
+        return false;
+    }
+
+    if (isNaN(price) || price <= 0) {
+        showToast('error', 'يرجى إدخال سعر صحيح');
+        return false;
+    }
+
+    if (isNaN(stock) || stock < 0) {
+        showToast('error', 'يرجى إدخال كمية صحيحة');
+        return false;
+    }
+
+    // التحقق من عدم وجود منتج مكرر
+    try {
+        const savedProducts = JSON.parse(sessionStorage.getItem('products') || '[]');
+        const isDuplicate = savedProducts.some(product => 
+            product.name.toLowerCase() === name.toLowerCase() && 
+            product.model.toLowerCase() === model.toLowerCase()
+        );
+        
+        if (isDuplicate) {
+            showToast('error', 'هذا المنتج موجود بالفعل في النظام');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error checking for duplicates:', error);
+    }
 
     // إنشاء كائن المنتج
     const newProduct = {
         id: Date.now(),
-        name: formData.get('name')?.trim(),
-        model: formData.get('model')?.trim(),
-        category: formData.get('category')?.trim(),
-        details: formData.get('details')?.trim(),
-        price: parseFloat(formData.get('price')),
-        stock: parseInt(formData.get('stock')),
+        name: name,
+        model: model,
+        category: category,
+        details: details,
+        price: price,
+        stock: stock,
     };
-
-
 
     // معالجة الصورة
     const imageFile = formData.get('image');
@@ -754,25 +1075,64 @@ function handleAddProduct(form) {
             const productCard = createProductCard(newProduct);
             if (productCard) {
                 addNewProductToGrid(productCard, newProduct);
+                // إغلاق المودال وإعادة تعيين النموذج
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+                if (modal) {
+                    modal.hide();
+                    // إعادة تعيين النموذج بعد إغلاق المودال
+                    setTimeout(() => {
+                        resetAddProductForm();
+                    }, 300);
+                }
             }
+        };
+        reader.onerror = function() {
+            showToast('error', 'خطأ في قراءة الصورة');
         };
         reader.readAsDataURL(imageFile);
     } else {
-        newProduct.image = 'images/default-product.jpg';
+        // استخدام صورة افتراضية إذا لم يتم اختيار صورة
+        newProduct.image = 'images/logo.png'; // استخدام الشعار كصورة افتراضية
         const productCard = createProductCard(newProduct);
         if (productCard) {
             addNewProductToGrid(productCard, newProduct);
+            // إغلاق المودال وإعادة تعيين النموذج
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+            if (modal) {
+                modal.hide();
+                // إعادة تعيين النموذج بعد إغلاق المودال
+                setTimeout(() => {
+                    resetAddProductForm();
+                }, 300);
+            }
         }
     }
 
+    return false; // منع إعادة التحميل
+}
 
-    const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
-    if (modal) {
-        modal.hide();
+/**
+ * إعادة تعيين نموذج إضافة المنتج
+ */
+function resetAddProductForm() {
+    const form = document.getElementById('addProductForm');
+    if (form) {
         form.reset();
+        form.classList.remove('was-validated');
+        
+        // إزالة رسائل الخطأ
+        const invalidElements = form.querySelectorAll('.is-invalid');
+        invalidElements.forEach(element => {
+            element.classList.remove('is-invalid');
+        });
+        
+        // إعادة تفعيل زر الإرسال
+        const submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'إضافة المنتج';
+        }
     }
-
-    showToast('success', 'تم إضافة المنتج بنجاح');
 }
 
 // =================== Products Item End =====================
@@ -1163,6 +1523,7 @@ function showInvoice(order) {
     const iframeDoc = iframe.contentWindow.document;
     iframeDoc.open();
     iframeDoc.write(`
+        <!DOCTYPE html>
         <html dir="rtl">
             <head>
                 <title>فاتورة طلب #${order.id}</title>
@@ -1849,8 +2210,8 @@ function updatePendingInvitesTable() {
                 <tr data-invite-id="${invite.id}">
                     <td>${invite.name}</td>
                     <td>${invite.email}</td>
-                    <td>${formattedDate}</td>
-                    <td>${formattedTime}</td>
+                    <td class="date-tb">${formattedDate}</td>
+                    <td class="time-tb">${formattedTime}</td>
                     <td><span class="badge bg-warning">${invite.status}</span></td>
                     <td>
                         <button class="btn btn-sm btn-secondary resend-invite" title="إعادة إرسال الدعوة">
@@ -2023,7 +2384,7 @@ function showToast(type, message) {
     const bsToast = new bootstrap.Toast(toast, {
         animation: true,
         autohide: true,
-        delay: 3000
+        delay: type === 'error' ? 5000 : 3000 // رسائل الخطأ تبقى لفترة أطول
     });
     
     bsToast.show();
@@ -2048,9 +2409,14 @@ function showToast(type, message) {
             font-size: 0.95rem;
             padding: 12px 15px;
         }
+        .toast.bg-danger {
+            background-color: #dc3545 !important;
+        }
+        .toast.bg-success {
+            background-color: #28a745 !important;
+        }
     `;
     document.head.appendChild(style);
-
 
     toast.addEventListener('hidden.bs.toast', () => {
         toastContainer.remove();
