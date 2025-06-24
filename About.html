@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
     <div class="container">
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="index.html" style="color: #FBB040;">PROTECH</a>
+    <a class="navbar-brand fw-bold" href="#" style="color: #FBB040;">PROTECH</a>
 
     <!-- زر التوجّل (الهامبرجر) الخاص ببووتستراب باللون الأبيض -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تبديل القائمة" style="background-color: #fff;">
@@ -39,27 +39,31 @@
 
     <!-- الأيقونات خارج التوجل مينيو وتظهر فقط في الشاشات الكبيرة -->
     <div class="d-none d-lg-flex align-items-center gap-3">
-        <div class="dropdown">
-            <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
-                <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
-            </ul>
-        </div>
-        <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
+    <div class="dropdown">
+        <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
+            <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
+        </ul>
     </div>
+    <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+    <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
+</div>
 
 <div id="cartSidebar" class="cart-sidebar">
-    <div class="cart-header d-flex justify-content-between align-items-center">
-        <span id="closeCartBtn" style="cursor:pointer;">Close ✕</span>
-        <h5>Shopping cart</h5>
+    <div class="cart-header">
+        <h5>سلة التسوق</h5>
+        <span id="closeCartBtn" style="cursor: pointer;">&#10005;</span>
     </div>
-    <hr>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="emptyMessage" class="empty-message text-center mt-4">
-        <p class="mt-2">لا توجد منتجات في سلة المشتريات.</p>
-        <button class="btn btn-danger" onclick="returnToShop()">Return To Shop</button>
+    <div id="cartItems" class="cart-items">
+        <!-- Items will be injected here by JS -->
+    </div>
+    <div id="emptyMessage" class="empty-message">
+        <p>سلة المشتريات فارغة.</p>
+        <a href="product.html" onclick="returnToShop(event)" class="btn-return-shop">العودة إلى المتجر</a>
+    </div>
+    <div class="cart-footer" style="display: none;">
+        <!-- Footer will be injected here by JS -->
     </div>
 </div>
 
@@ -68,8 +72,8 @@
 <!-- Search Box -->
     <div id="searchBox" class="search-box bg-white px-4 py-3 position-absolute top-100 start-50 translate-middle-x shadow d-none">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="ابحث عن منتج...">
-            <button class="btn btn-primary">بحث</button>
+            <input type="text" class="form-control" id="searchInput" name="search" placeholder="ابحث عن منتج...">
+            <button class="btn btn-search">بحث</button>
         </div>
     </div>
 </nav>
@@ -273,105 +277,6 @@
 </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="js/About Us.js"></script>
-    <script>
-    // Toggle Search Box
-    const searchBtn = document.getElementById("searchBtn");
-    const searchBox = document.getElementById("searchBox");
-    searchBtn.addEventListener("click", () => {
-    searchBox.classList.toggle("d-none");
-});
-
-function openModal() {
-    document.getElementById("policyModal").style.display = "flex";
-}
-
-function closeModal() {
-    document.getElementById("policyModal").style.display = "none";
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById("policyModal");
-    if (event.target === modal) {
-        closeModal();
-    }
-}
-
-    const cartIcon = document.getElementById('cartIcon');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCartBtn = document.getElementById('closeCartBtn');
-    const cartItems = document.getElementById('cartItems');
-    const emptyMessage = document.getElementById('emptyMessage');
-
-    cartIcon.onclick = () => {
-        cartSidebar.classList.add('open');
-        updateCartView();
-    };
-
-    closeCartBtn.onclick = () => {
-        cartSidebar.classList.remove('open');
-    };
-
-    function updateCartView() {
-        const products = JSON.parse(localStorage.getItem('cart')) || [];
-        cartItems.innerHTML = '';
-
-        if (products.length > 0) {
-        emptyMessage.style.display = 'none';
-        products.forEach(p => {
-            const item = document.createElement('div');
-            item.innerHTML = `<strong>${p.name}</strong> - ${p.price} جنيه`;
-            cartItems.appendChild(item);
-        });
-        } else {
-        emptyMessage.style.display = 'block';
-        }
-    }
-
-    function returnToShop() {
-        window.location.href = 'product.html'; 
-    }
-
-    function addToCart(product) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(product);
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    // addToCart({ name: 'منتج 1', price: 100 });
-
-    document.addEventListener('DOMContentLoaded', function() {
-      // ربط أيقونات التوجل مينيو بوظائفها الأصلية في الشاشات الصغيرة
-      const cartIconCollapse = document.getElementById('cartIconCollapse');
-      const searchBtnCollapse = document.getElementById('searchBtnCollapse');
-      const cartSidebar = document.getElementById('cartSidebar');
-      const searchBox = document.getElementById('searchBox');
-      if (cartIconCollapse) {
-        cartIconCollapse.addEventListener('click', function(e) {
-          e.preventDefault();
-          if (cartSidebar) cartSidebar.classList.add('open');
-          // إغلاق القائمة المنسدلة بعد الفتح
-          const navbarCollapse = document.getElementById('mainNavbar');
-          if (navbarCollapse && window.bootstrap) {
-            const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
-            bsCollapse.hide();
-          }
-          if (typeof updateCartView === 'function') updateCartView();
-        });
-      }
-      if (searchBtnCollapse) {
-        searchBtnCollapse.addEventListener('click', function(e) {
-          e.preventDefault();
-          if (searchBox) searchBox.classList.toggle('d-none');
-          // إغلاق القائمة المنسدلة بعد الفتح
-          const navbarCollapse = document.getElementById('mainNavbar');
-          if (navbarCollapse && window.bootstrap) {
-            const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
-            bsCollapse.hide();
-          }
-        });
-      }
-    });
-    </script>
+    <script src="js/About.js"></script>
 </body>
 </html>
