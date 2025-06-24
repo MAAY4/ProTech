@@ -92,12 +92,12 @@
     <div class="d-flex justify-content-between flex-wrap align-items-center">
     <div class="d-flex flex-wrap align-items-center gap-2">
     <span class="me-2">رتب حسب:</span>
-    <select class="form-select w-auto">
+    <select class="form-select w-auto" id="sortSelect" name="sort">
         <option selected>الاحدث</option>
         <option>السعر من الأقل للأعلى</option>
         <option>السعر من الأعلى للأقل</option>
     </select>
-    <input type="text" class="form-control ms-2 w-auto" style="min-width: 200px;" placeholder="ابحث عن منتج...">
+    <input type="text" class="form-control ms-2 w-auto" id="filterSearchInput" name="filterSearch" style="min-width: 200px;" placeholder="ابحث عن منتج...">
     </div>
     <div>
         <span>عرض 1 - 48 من 230 منتج</span>
@@ -127,8 +127,8 @@
             <div class="mb-3">
             <h6 class="fw-bold">السعر</h6>
             <div class="d-flex gap-2">
-                <input type="number" class="form-control text-end" placeholder="0 ج.م">
-                <input type="number" class="form-control text-end" placeholder="32770 ج.م">
+                <input type="number" class="form-control text-end" id="priceMin" name="priceMin" placeholder="0 ج.م">
+                <input type="number" class="form-control text-end" id="priceMax" name="priceMax" placeholder="32770 ج.م">
             </div>
             </div>
 
@@ -159,7 +159,7 @@
                     <p class="text-muted small">TOTAL TOOLS</p>
                     <p class="fw-bold text-main">LE 1700.00</p>
                     <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                        <input type="number" min="1" value="1" class="form-control form-control-sm product-qty" style="width:60px;">
+                        <input type="number" min="1" value="1" class="form-control form-control-sm product-qty" id="qty-1" name="qty-1" style="width:60px;">
                         <a href="#" class="add-to-cart" data-name="منشار كهربائي" data-price="1700" data-image="images/5888828929857406810.jpg"><i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                     <p class="text-muted small">TOTAL TOOLS</p>
                     <p class="fw-bold text-main">LE 1200.00</p>
                     <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                        <input type="number" min="1" value="1" class="form-control form-control-sm product-qty" style="width:60px;">
+                        <input type="number" min="1" value="1" class="form-control form-control-sm product-qty" id="qty-2" name="qty-2" style="width:60px;">
                         <a href="#" class="add-to-cart" data-name="مثقاب كهربائي" data-price="1200" data-image="images/background1.jpg"><i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
