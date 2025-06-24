@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;">
     <meta name="csrf-token" content="${CSRF_TOKEN}">
     
 
@@ -14,10 +14,15 @@
     <meta http-equiv="Expires" content="0">
 
     <title>لوحة التحكم - ProTech</title>
+    
+    <!-- Favicon to prevent 404 error -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="Css/admin-dashboard.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -74,7 +79,8 @@
                             <i class="fas fa-search"></i>
                         </button>
                         <div class="search-dropdown">
-                            <input type="text" placeholder="بحث...">
+                            <label for="admin-search" class="visually-hidden">بحث في لوحة التحكم</label>
+                            <input type="text" id="admin-search" name="adminSearch" placeholder="بحث..." autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -184,10 +190,11 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">إحصائيات المبيعات والطلبات</h5>
                             <div class="chart-controls d-flex gap-3">
-                                <select class="form-select year-select" style="width: 120px;">
-
+                                <select class="form-select year-select" id="year-select" name="year" style="width: 120px;" autocomplete="off">
+                                    <!-- الخيارات تملأ ديناميكياً -->
                                 </select>
-                                <select class="form-select month-select" style="width: 140px;">
+                                <label for="year-select" class="visually-hidden">سنة الإحصائيات</label>
+                                <select class="form-select month-select" id="month-select" name="month" style="width: 140px;" autocomplete="off">
                                     <option value="all" selected>كل الشهور</option>
                                     <option value="0">يناير</option>
                                     <option value="1">فبراير</option>
@@ -202,6 +209,10 @@
                                     <option value="10">نوفمبر</option>
                                     <option value="11">ديسمبر</option>
                                 </select>
+                                <label for="month-select" class="visually-hidden">شهر الإحصائيات</label>
+                                <button class="btn btn-success" id="downloadExcelBtn">
+                                    <i class="fas fa-file-excel"></i> تحميل التقارير
+                                </button>
                             </div>
                         </div>
                         <div class="card-body" style="height: 400px">
@@ -338,22 +349,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addProductForm">
+                    <form id="addProductForm" class="needs-validation" novalidate>
                         <div class="mb-3">
-                            <label class="form-label">صورة المنتج</label>
-                            <input type="file" class="form-control" name="image" accept="image/*" required>
+                            <label class="form-label" for="add-image">صور المنتج (يمكن اختيار أكثر من صورة)</label>
+                            <input type="file" class="form-control" id="add-image" name="image" accept="image/*" required autocomplete="off" multiple>
+                            <div class="invalid-feedback">يرجى اختيار صورة للمنتج</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">اسم المنتج</label>
-                            <input type="text" class="form-control" name="name" required>
+                            <label class="form-label" for="add-name">اسم المنتج</label>
+                            <input type="text" class="form-control" id="add-name" name="name" required minlength="3" maxlength="100" autocomplete="off">
+                            <div class="invalid-feedback">يرجى إدخال اسم المنتج (3 أحرف على الأقل)</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">الطراز</label>
-                            <input type="text" class="form-control" name="model" required>
+                            <label class="form-label" for="add-model">الطراز</label>
+                            <input type="text" class="form-control" id="add-model" name="model" required minlength="2" maxlength="50" autocomplete="off">
+                            <div class="invalid-feedback">يرجى إدخال طراز المنتج</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">القسم</label>
-                            <select class="form-select" name="category" required>
+                            <label class="form-label" for="add-category">القسم</label>
+                            <select class="form-select" id="add-category" name="category" required autocomplete="off">
                                 <option value="">اختر القسم</option>
                                 <option value="معدات كهربائية">معدات كهربائية</option>
                                 <option value="عدد يدوية">عدد يدوية</option>
@@ -362,18 +376,22 @@
                                 <option value="معدات اللحام">معدات اللحام</option>
                                 <option value="ملحقات">ملحقات</option>
                             </select>
+                            <div class="invalid-feedback">يرجى اختيار قسم المنتج</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">تفاصيل المنتج</label>
-                            <textarea class="form-control" name="details" rows="3" required></textarea>
+                            <label class="form-label" for="add-details">تفاصيل المنتج</label>
+                            <textarea class="form-control" id="add-details" name="details" rows="3" required minlength="10" maxlength="500" autocomplete="off"></textarea>
+                            <div class="invalid-feedback">يرجى إدخال تفاصيل المنتج (10 أحرف على الأقل)</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">السعر</label>
-                            <input type="number" class="form-control" name="price" required>
+                            <label class="form-label" for="add-price">السعر</label>
+                            <input type="number" class="form-control" id="add-price" name="price" required min="0" step="0.01" autocomplete="off">
+                            <div class="invalid-feedback">يرجى إدخال سعر صحيح</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">المخزون</label>
-                            <input type="number" class="form-control" name="stock" required>
+                            <label class="form-label" for="add-stock">المخزون</label>
+                            <input type="number" class="form-control" id="add-stock" name="stock" required min="0">
+                            <div class="invalid-feedback">يرجى إدخال كمية صحيحة</div>
                         </div>
                     </form>
                 </div>
@@ -397,29 +415,29 @@
                     <form id="editProductForm" class="edit-product-form needs-validation" novalidate>
                         <input type="hidden" name="productId">
                         <div class="mb-3">
-                            <label class="form-label">الصورة الحالية</label>
+                            <div class="form-label">الصورة الحالية</div>
                             <div class="current-image">
                                 <img src="" alt="صورة المنتج" id="currentProductImage" class="img-fluid">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">تغيير الصورة</label>
-                            <input type="file" class="form-control" name="image" accept="image/*">
+                            <label class="form-label" for="edit-image">تغيير الصورة</label>
+                            <input type="file" class="form-control" id="edit-image" name="image" accept="image/*" autocomplete="off">
                             <div class="invalid-feedback">يرجى اختيار صورة صالحة</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">اسم المنتج</label>
-                            <input type="text" class="form-control" name="name" required minlength="3">
+                            <label class="form-label" for="edit-name">اسم المنتج</label>
+                            <input type="text" class="form-control" id="edit-name" name="name" required minlength="3" autocomplete="off">
                             <div class="invalid-feedback">يرجى إدخال اسم المنتج (3 أحرف على الأقل)</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">الطراز</label>
-                            <input type="text" class="form-control" name="model" required>
+                            <label class="form-label" for="edit-model">الطراز</label>
+                            <input type="text" class="form-control" id="edit-model" name="model" required autocomplete="off">
                             <div class="invalid-feedback">يرجى إدخال طراز المنتج</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">القسم</label>
-                            <select class="form-select" name="category" required>
+                            <label class="form-label" for="edit-category">القسم</label>
+                            <select class="form-select" id="edit-category" name="category" required autocomplete="off">
                                 <option value="">اختر القسم</option>
                                 <option value="معدات كهربائية">معدات كهربائية</option>
                                 <option value="عدد يدوية">عدد يدوية</option>
@@ -431,18 +449,18 @@
                             <div class="invalid-feedback">يرجى اختيار قسم المنتج</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">تفاصيل المنتج</label>
-                            <textarea class="form-control" name="details" rows="3" required minlength="10"></textarea>
+                            <label class="form-label" for="edit-details">تفاصيل المنتج</label>
+                            <textarea class="form-control" id="edit-details" name="details" rows="3" required minlength="10" autocomplete="off"></textarea>
                             <div class="invalid-feedback">يرجى إدخال تفاصيل المنتج (10 أحرف على الأقل)</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">السعر</label>
-                            <input type="number" class="form-control" name="price" required min="0" step="0.01">
+                            <label class="form-label" for="edit-price">السعر</label>
+                            <input type="number" class="form-control" id="edit-price" name="price" required min="0" step="0.01" autocomplete="off">
                             <div class="invalid-feedback">يرجى إدخال سعر صحيح</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">المخزون</label>
-                            <input type="number" class="form-control" name="stock" required min="0">
+                            <label class="form-label" for="edit-stock">المخزون</label>
+                            <input type="number" class="form-control" id="edit-stock" name="stock" required min="0">
                             <div class="invalid-feedback">يرجى إدخال كمية صحيحة</div>
                         </div>
                     </form>
@@ -466,12 +484,12 @@
                 <div class="modal-body">
                     <form id="inviteUserForm">
                         <div class="mb-3">
-                            <label class="form-label">البريد الإلكتروني</label>
-                            <input type="email" class="form-control" name="email" required>
+                            <label class="form-label" for="invite-email">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="invite-email" name="email" required autocomplete="email">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">الاسم</label>
-                            <input type="text" class="form-control" name="name" required>
+                            <label class="form-label" for="invite-name">الاسم</label>
+                            <input type="text" class="form-control" id="invite-name" name="name" required autocomplete="name">
                         </div>
                     </form>
                 </div>
@@ -496,7 +514,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle">
+                        <table class="table table-hover align-middle table-bordered">
                             <thead>
                                 <tr>
                                     <th>الاسم</th>
@@ -599,7 +617,6 @@
                                         </tr>
                                     </thead>
                                     <tbody class="products-table-body">
- -->
                                     </tbody>
                                     <tfoot>
                                         <tr class="table-active">
@@ -718,8 +735,14 @@
                 <h5></h5>
                 <p class="category"></p>
                 <div class="product-stats">
-                    <span class="stat sales"><i class="fas fa-shopping-cart"></i>المبيعات: <span class="sales-count"></span></span>
-                    <span class="stat stock"><i class="fas fa-box"></i>المخزون: <span class="stock-count"></span></span>
+                    <span class="stat sales">
+                        <span class="stat-text">المبيعات: <span class="sales-count"></span></span>
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="stat stock">
+                        <span class="stat-text">المخزون: <span class="stock-count"></span></span>
+                        <i class="fas fa-box"></i>
+                    </span>
                 </div>
                 <div class="product-meta">
                     <div class="price"></div>
@@ -748,7 +771,10 @@
                 <div class="category"></div>
                 <div class="details"></div>
                 <div class="product-stats">
-                    <span class="stat stock"><i class="fas fa-box"></i>المخزون: <span class="stock-count"></span></span>
+                    <span class="stat stock">
+                        <i class="fas fa-box"></i>
+                        <span class="stat-text">المخزون: <span class="stock-count"></span></span>
+                    </span>
                 </div>
                 <div class="product-meta">
                     <div class="price"></div>
@@ -889,39 +915,39 @@
                     <form class="edit-user-form">
                         <input type="hidden" name="userId">
                         <div class="mb-3">
-                            <label class="form-label">الاسم</label>
-                            <input type="text" class="form-control" name="name" required>
+                            <label class="form-label" for="user-name">الاسم</label>
+                            <input type="text" class="form-control" id="user-name" name="name" required autocomplete="name">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">البريد الإلكتروني</label>
-                            <input type="email" class="form-control" name="email" required>
+                            <label class="form-label" for="user-email">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="user-email" name="email" required autocomplete="email">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">رقم الهاتف</label>
-                            <input type="tel" class="form-control" name="phone" required>
+                            <label class="form-label" for="user-phone">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="user-phone" name="phone" required autocomplete="tel">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">الدور</label>
-                            <select class="form-select" name="role" required>
+                            <label class="form-label" for="user-role">الدور</label>
+                            <select class="form-select" id="user-role" name="role" required autocomplete="off">
                                 <option value="مدير عام">مدير عام</option>
                                 <option value="مشرف مبيعات">مشرف مبيعات</option>
                                 <option value="مشرف مخزن">مشرف مخزن</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">الصلاحيات</label>
+                            <div class="form-label">الصلاحيات</div>
                             <div class="permissions-checkboxes">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة المنتجات">
-                                    <label class="form-check-label">إدارة المنتجات</label>
+                                    <input class="form-check-input" type="checkbox" id="perm-products" name="permissions[]" value="إدارة المنتجات" autocomplete="off">
+                                    <label class="form-check-label" for="perm-products">إدارة المنتجات</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة الطلبات">
-                                    <label class="form-check-label">إدارة الطلبات</label>
+                                    <input class="form-check-input" type="checkbox" id="perm-orders" name="permissions[]" value="إدارة الطلبات" autocomplete="off">
+                                    <label class="form-check-label" for="perm-orders">إدارة الطلبات</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="إدارة المسؤولين">
-                                    <label class="form-check-label">إدارة المسؤولين</label>
+                                    <input class="form-check-input" type="checkbox" id="perm-admins" name="permissions[]" value="إدارة المسؤولين" autocomplete="off">
+                                    <label class="form-check-label" for="perm-admins">إدارة المسؤولين</label>
                                 </div>
                             </div>
                         </div>
@@ -982,6 +1008,6 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="JS/admin-dashboard.js"></script>
+    <script src="js/admin-dashboard.js"></script>
 </body>
 </html>
