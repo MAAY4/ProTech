@@ -18,7 +18,7 @@
 <nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
     <div class="container">
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="index.html" style="color: #FBB040;">PROTECH</a>
+    <a class="navbar-brand fw-bold" href="#" style="color: #FBB040;">PROTECH</a>
 
     <!-- زر التوجّل (الهامبرجر) الخاص ببووتستراب باللون الأبيض -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تبديل القائمة" style="background-color: #fff;">
@@ -52,15 +52,19 @@
     </div>
 
 <div id="cartSidebar" class="cart-sidebar">
-    <div class="cart-header d-flex justify-content-between align-items-center">
-        <span id="closeCartBtn" style="cursor:pointer;">Close ✕</span>
-        <h5>Shopping cart</h5>
+    <div class="cart-header">
+        <h5>سلة التسوق</h5>
+        <span id="closeCartBtn" style="cursor: pointer;">&#10005;</span>
     </div>
-    <hr>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="emptyMessage" class="empty-message text-center mt-4">
-        <p class="mt-2">لا توجد منتجات في سلة المشتريات.</p>
-        <button class="btn btn-danger" onclick="returnToShop()">Return To Shop</button>
+    <div id="cartItems" class="cart-items">
+        <!-- Items will be injected here by JS -->
+    </div>
+    <div id="emptyMessage" class="empty-message">
+        <p>سلة المشتريات فارغة.</p>
+        <a href="product.html" onclick="returnToShop(event)" class="btn-return-shop">العودة إلى المتجر</a>
+    </div>
+    <div class="cart-footer" style="display: none;">
+        <!-- Footer will be injected here by JS -->
     </div>
 </div>
 
@@ -69,19 +73,19 @@
 <!-- Search Box -->
     <div id="searchBox" class="search-box bg-white px-4 py-3 position-absolute top-100 start-50 translate-middle-x shadow d-none">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="ابحث عن منتج...">
-            <button class="btn btn-primary">بحث</button>
+            <input type="text" class="form-control" id="searchInput" name="search" placeholder="ابحث عن منتج...">
+            <button class="btn btn-search">بحث</button>
         </div>
     </div>
 </nav>
 
     <header>
         <div class="floating-elements">
-        <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; background-image: url('images/THT15246.png');"></div>
-        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-delay: 3s; background-image: url('images/THT1776P.png');"></div>
-        <div class="floating-element" style="width: 80px; height: 80px; top: 30%; left: 50%; animation-delay: 6s; background-image: url('images/TG107136.png');"></div>
-        <div class="floating-element" style="width: 120px; height: 120px; top: 70%; left: 30%; animation-delay: 9s; background-image: url('images/TDLI1221.png');"></div>
-    </div>
+            <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; background-image: url('images/THT15246.png');"></div>
+            <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-delay: 3s; background-image: url('images/THT1776P.png');"></div>
+            <div class="floating-element" style="width: 80px; height: 80px; top: 30%; left: 50%; animation-delay: 6s; background-image: url('images/TG107136.png');"></div>
+            <div class="floating-element" style="width: 120px; height: 120px; top: 70%; left: 30%; animation-delay: 9s; background-image: url('images/TDLI1221.png');"></div>
+        </div>
         <h1>اتصل بنا</h1>
         <p>فريقنا سعيد بالإجابة على أي أسئلة قد تكون لديكم حول كيفية مساعدتكم. إذا كنتم مهتمين باستخدام خدماتنا،
             واذا قمتم بملء النموذج أدناه، سيتواصل معكم أحد أعضاء
@@ -266,9 +270,8 @@
     }
     </style>
 
-    <script src="js/conect.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/connect.js"></script>
 </body>
 
 </html>
