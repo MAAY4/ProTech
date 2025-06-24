@@ -56,8 +56,8 @@
                     <div class="form-group">
                         <label for="cardNumber">رقم البطاقة</label>
                         <div style="position: relative;">
-                            <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456"
-                                maxlength="19">
+                            <input type="text" id="cardNumber" name="cardNumber" class="form-control" placeholder="1234 5678 9012 3456"
+                                maxlength="19" autocomplete="cc-number">
                             <div class="input-icon">
                                 <i class="far fa-credit-card"></i>
                             </div>
@@ -67,7 +67,7 @@
                     <div class="form-group">
                         <label for="cardName">اسم حامل البطاقة</label>
                         <div style="position: relative;">
-                            <input type="text" id="cardName" class="form-control" placeholder="كما هو مدون على البطاقة">
+                            <input type="text" id="cardName" name="cardName" class="form-control" placeholder="كما هو مدون على البطاقة" autocomplete="cc-name">
                             <div class="input-icon">
                                 <i class="far fa-user"></i>
                             </div>
@@ -78,7 +78,7 @@
                         <div class="form-group" style="flex: 1;">
                             <label for="expiryDate">تاريخ الانتهاء</label>
                             <div style="position: relative;">
-                                <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                                <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="MM/YY" autocomplete="cc-exp">
                                 <div class="input-icon">
                                     <i class="far fa-calendar-alt"></i>
                                 </div>
@@ -87,7 +87,7 @@
                         <div class="form-group" style="flex: 1;">
                             <label for="cvv">رمز الأمان (CVV)</label>
                             <div style="position: relative;">
-                                <input type="text" id="cvv" class="form-control" placeholder="•••">
+                                <input type="text" id="cvv" name="cvv" class="form-control" placeholder="•••" autocomplete="cc-csc">
                                 <div class="input-icon">
                                     <i class="fas fa-lock"></i>
                                 </div>
@@ -96,7 +96,7 @@
                     </div>
 
                     <div class="checkbox-container">
-                        <input type="checkbox" id="saveCard">
+                        <input type="checkbox" id="saveCard" name="saveCard" autocomplete="off">
                         <label for="saveCard">حفظ بيانات البطاقة لعمليات شراء لاحقة</label>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="coupon-box">
-                    <input type="text" class="coupon-input" placeholder="كود الخصم">
+                    <input type="text" id="couponInput" name="coupon" class="coupon-input" placeholder="كود الخصم" autocomplete="off">
                     <button class="coupon-btn">تطبيق</button>
                 </div>
 
@@ -188,31 +188,31 @@
             <form id="address-form">
                 <div class="form-group">
                     <label for="address-name">الاسم</label>
-                    <input type="text" id="address-name" class="form-control" required>
+                    <input type="text" id="address-name" name="addressName" class="form-control" required autocomplete="name">
                 </div>
                 <div class="form-group">
                     <label for="address-phone">رقم الهاتف</label>
-                    <input type="tel" id="address-phone" class="form-control" required pattern="[0-9]{10,15}">
+                    <input type="tel" id="address-phone" name="addressPhone" class="form-control" required pattern="[0-9]{10,15}" autocomplete="tel">
                 </div>
                 <div class="form-group">
                     <label for="address-line1">العنوان 1</label>
-                    <input type="text" id="address-line1" class="form-control" required>
+                    <input type="text" id="address-line1" name="addressLine1" class="form-control" required autocomplete="address-line1">
                 </div>
                 <div class="form-group">
                     <label for="address-line2">العنوان 2 (اختياري)</label>
-                    <input type="text" id="address-line2" class="form-control">
+                    <input type="text" id="address-line2" name="addressLine2" class="form-control" autocomplete="address-line2">
                 </div>
                 <div class="form-group">
                     <label for="address-governorate">المحافظة</label>
-                    <select id="address-governorate" class="form-control" required></select>
+                    <select id="address-governorate" name="addressGovernorate" class="form-control" required autocomplete="address-level1"></select>
                 </div>
                 <div class="form-group">
                     <label for="address-city">المدينة / المركز</label>
-                    <select id="address-city" class="form-control" required></select>
+                    <select id="address-city" name="addressCity" class="form-control" required autocomplete="address-level2"></select>
                 </div>
                 <div class="form-group">
                     <label for="address-zip">الرمز البريدي</label>
-                    <input type="text" id="address-zip" class="form-control" required pattern="[0-9]{3,10}">
+                    <input type="text" id="address-zip" name="addressZip" class="form-control" required pattern="[0-9]{3,10}" autocomplete="postal-code">
                 </div>
                 <button type="submit" class="btn-pay" style="width:100%;margin-top:10px;">إضافة العنوان</button>
             </form>
