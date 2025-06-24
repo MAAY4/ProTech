@@ -139,12 +139,12 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">الاسم ثلاثي*</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required autocomplete="name">
                             <div class="error-message" id="nameError">الرجاء إدخال الاسم</div>
                         </div>
                         <div class="form-group">
                             <label for="email">البريد الإلكتروني</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="email" autocomplete="email">
                             <div class="error-message" id="emailError">الرجاء إدخال بريد إلكتروني صحيح</div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                         <div class="form-group">
                             <label for="phone">رقم الهاتف*</label>
                             <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}"
-                                title="يجب أن يكون رقم الهاتف صحيح" required>
+                                title="يجب أن يكون رقم الهاتف صحيح" required autocomplete="tel">
                             <div class="error-message" id="phoneError">الرجاء إدخال رقم هاتف صحيح</div>
                         </div>
                     </div>
@@ -171,23 +171,23 @@
 
                     <div class="textarea-container" id="complaintDetails">
                         <label for="complaint">تفاصيل الشكوى*</label>
-                        <textarea id="complaint" name="complaint"></textarea>
+                        <textarea id="complaint" name="complaint" autocomplete="off"></textarea>
                         <div class="error-message" id="complaintError">الرجاء إدخال تفاصيل الشكوى</div>
                     </div>
 
                     <div class="textarea-container" id="suggestionDetails">
                         <label for="suggestion">تفاصيل الاقتراح*</label>
-                        <textarea id="suggestion" name="suggestion"></textarea>
+                        <textarea id="suggestion" name="suggestion" autocomplete="off"></textarea>
                         <div class="error-message" id="suggestionError">الرجاء إدخال تفاصيل الاقتراح</div>
                     </div>
 
                     <div class="textarea-container visible" id="generalMessage">
                         <label for="message">الرسالة*</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <textarea id="message" name="message" required autocomplete="off"></textarea>
                         <div class="error-message" id="messageError">الرجاء إدخال الرسالة</div>
                     </div>
 
-                    <button type="submit" class="btn">إرسال الرسالة</button>
+                    <button type="submit" class="btn btn-send-message w-100 mt-3"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
                 </form>
             </div>
         </section>
