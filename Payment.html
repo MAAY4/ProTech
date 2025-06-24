@@ -52,51 +52,53 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="cardNumber">رقم البطاقة</label>
-                    <div style="position: relative;">
-                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456"
-                            maxlength="19">
-                        <div class="input-icon">
-                            <i class="far fa-credit-card"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="cardName">اسم حامل البطاقة</label>
-                    <div style="position: relative;">
-                        <input type="text" id="cardName" class="form-control" placeholder="كما هو مدون على البطاقة">
-                        <div class="input-icon">
-                            <i class="far fa-user"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 15px;">
-                    <div class="form-group" style="flex: 1;">
-                        <label for="expiryDate">تاريخ الانتهاء</label>
+                <div id="card-details-form">
+                    <div class="form-group">
+                        <label for="cardNumber">رقم البطاقة</label>
                         <div style="position: relative;">
-                            <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                            <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456"
+                                maxlength="19">
                             <div class="input-icon">
-                                <i class="far fa-calendar-alt"></i>
+                                <i class="far fa-credit-card"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label for="cvv">رمز الأمان (CVV)</label>
+
+                    <div class="form-group">
+                        <label for="cardName">اسم حامل البطاقة</label>
                         <div style="position: relative;">
-                            <input type="text" id="cvv" class="form-control" placeholder="•••">
+                            <input type="text" id="cardName" class="form-control" placeholder="كما هو مدون على البطاقة">
                             <div class="input-icon">
-                                <i class="fas fa-lock"></i>
+                                <i class="far fa-user"></i>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="checkbox-container">
-                    <input type="checkbox" id="saveCard">
-                    <label for="saveCard">حفظ بيانات البطاقة لعمليات شراء لاحقة</label>
+                    <div style="display: flex; gap: 15px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="expiryDate">تاريخ الانتهاء</label>
+                            <div style="position: relative;">
+                                <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                                <div class="input-icon">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="cvv">رمز الأمان (CVV)</label>
+                            <div style="position: relative;">
+                                <input type="text" id="cvv" class="form-control" placeholder="•••">
+                                <div class="input-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="saveCard">
+                        <label for="saveCard">حفظ بيانات البطاقة لعمليات شراء لاحقة</label>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-pay" id="payButton">
@@ -110,6 +112,8 @@
             </div>
 
             <div class="payment-summary">
+                <button id="add-address-btn" class="btn-pay" style="width:100%;margin-bottom:20px;">إضافة العنوان</button>
+                <div id="address-list"></div>
                 <h2 style="color: var(--primary); margin-bottom: 20px;">ملخص الطلب</h2>
 
                 <div class="summary-item">
@@ -140,7 +144,19 @@
                 <div class="payment-methods">
                     <h3 style="color: var(--primary); margin-bottom: 15px;">طرق الدفع البديلة</h3>
 
-                    <div class="method active" onclick="selectPayment('installment')">
+                    <div class="method active" onclick="selectPayment('card')">
+                        <div class="method-icon" style="background: rgba(0, 174, 239, 0.1); color: var(--accent);">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>الدفع بالبطاقة</h3>
+                            <p>بطاقة ائتمانية أو خصم مباشر</p>
+                        </div>
+                    </div>
+
+                    <!-- بداية زر الدفع بالتقسيط -->
+                    <!--
+                    <div class="method" onclick="selectPayment('installment')">
                         <div class="method-icon" style="background: rgba(91, 40, 125, 0.1); color: #5b287d;">
                             <i class="fas fa-credit-card"></i>
                         </div>
@@ -149,6 +165,8 @@
                             <p>قسط مشترياتك على عدة أشهر</p>
                         </div>
                     </div>
+                    -->
+                    <!-- نهاية زر الدفع بالتقسيط -->
 
                     <div class="method" onclick="selectPayment('cash')">
                         <div class="method-icon">
@@ -163,6 +181,43 @@
             </div>
         </div>
     </div>
-        <script src="js/payment.js"></script>
+    <div id="address-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="close-address-modal">&times;</span>
+            <h2>إضافة عنوان جديد</h2>
+            <form id="address-form">
+                <div class="form-group">
+                    <label for="address-name">الاسم</label>
+                    <input type="text" id="address-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="address-phone">رقم الهاتف</label>
+                    <input type="tel" id="address-phone" class="form-control" required pattern="[0-9]{10,15}">
+                </div>
+                <div class="form-group">
+                    <label for="address-line1">العنوان 1</label>
+                    <input type="text" id="address-line1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="address-line2">العنوان 2 (اختياري)</label>
+                    <input type="text" id="address-line2" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="address-governorate">المحافظة</label>
+                    <select id="address-governorate" class="form-control" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="address-city">المدينة / المركز</label>
+                    <select id="address-city" class="form-control" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="address-zip">الرمز البريدي</label>
+                    <input type="text" id="address-zip" class="form-control" required pattern="[0-9]{3,10}">
+                </div>
+                <button type="submit" class="btn-pay" style="width:100%;margin-top:10px;">إضافة العنوان</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/payment.js"></script>
 </body>
 </html>
