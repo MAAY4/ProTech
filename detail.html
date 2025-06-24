@@ -1,118 +1,99 @@
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تفاصيل المنتج</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج - Protech</title>
+    <!-- Bootstrap, Icons, and Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Main Styles -->
+    <link rel="stylesheet" href="css/detail.css"> <!-- Page-specific Styles -->
     <link rel="icon" href="images/logo.png" type="image/x-icon">
-    <style>
-        body {
-        font-family: 'Cairo', sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-        }
-
-        .product-details {
-        max-width: 1200px;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        display: flex;
-        gap: 30px;
-        align-items: flex-start;
-        }
-
-        .product-image img {
-        max-width: 500px;
-        width: 100%;
-        border-radius: 10px;
-        border: 2px solid #00AEEF;
-        }
-
-        .product-info {
-        flex: 1;
-        }
-
-        .product-info h2 {
-        color: #215660;
-        margin-bottom: 20px;
-        }
-
-        .product-info ul {
-        list-style: disc;
-        padding-right: 20px;
-        color: #444;
-        }
-
-        .product-info ul li {
-        margin-bottom: 10px;
-        font-size: 16px;
-        }
-
-        .pay-link {
-        display: inline-block;
-        margin-top: 25px;
-        background-color: #FBB040;
-        color: white;
-        padding: 12px 30px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: background 0.3s ease;
-        }
-
-        .pay-link:hover {
-        background-color: #e09c36;
-        }
-
-        .quantity-box {
-        width: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 0 5px;
-        }
-
-        .quantity-box button {
-        border: none;
-        background: none;
-        font-size: 20px;
-        color: #215;
-        }
-
-        .btn-buy {
-        background-color: #1E2C84;
-        color: white;
-        }
-
-        .btn-cart {
-        background-color: #00BEE8;
-        color: white;
-        }
-
-        .btn-cart:hover, .btn-buy:hover {
-        opacity: 0.9;
-}
-
-    </style>
     </head>
     <body>
-
-    <div class="product-details">
-        <div class="product-image">
-        <img src="images/product1.jpg" alt="منشار كهربائي">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg py-3 shadow-sm position-relative">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html" style="color: #FBB040;">PROTECH</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تبديل القائمة" style="background-color: #fff;">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mx-auto" id="mainNavbar">
+                <ul class="navbar-nav gap-4 mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">المتجر</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About.html">من نحن</a></li>
+                    <li class="nav-item"><a class="nav-link" href="connect.html">تواصل معنا</a></li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="log in-up.html"><i class="fas fa-user me-2"></i>تسجيل الدخول/إنشاء حساب</a></li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="cartIconCollapse"><i class="fas fa-shopping-cart me-2"></i>سلة المشتريات</a></li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="#" id="searchBtnCollapse"><i class="fas fa-search me-2"></i>بحث</a></li>
+                </ul>
+            </div>
+            <div class="d-none d-lg-flex align-items-center gap-3">
+                <div class="dropdown">
+                    <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="log in-up.html">تسجيل الدخول</a></li>
+                        <li><a class="dropdown-item" href="log in-up.html">إنشاء حساب</a></li>
+                    </ul>
+                </div>
+                <a href="#" class="text-dark" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#" class="text-dark" id="searchBtn"><i class="fas fa-search"></i></a>
+            </div>
+            <div id="cartSidebar" class="cart-sidebar">
+                <div class="cart-header">
+                    <h5>سلة التسوق</h5>
+                    <span id="closeCartBtn" style="cursor: pointer;">&#10005;</span>
+                </div>
+                <div id="cartItems" class="cart-items"></div>
+                <div id="emptyMessage" class="empty-message">
+                    <p>سلة المشتريات فارغة.</p>
+                    <a href="product.html" onclick="returnToShop(event)" class="btn-return-shop">العودة إلى المتجر</a>
+                </div>
+                <div class="cart-footer" style="display: none;"></div>
+            </div>
         </div>
+        <div id="searchBox" class="search-box bg-white px-4 py-3 position-absolute top-100 start-50 translate-middle-x shadow d-none">
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" name="search" placeholder="ابحث عن منتج...">
+                <button class="btn btn-search">بحث</button>
+            </div>
+        </div>
+    </nav>
 
-        <div class="product-info">
-        <h2>منشار كهربائي - TOTAL TOOLS</h2>
+    <!-- Product Detail Section -->
+    <main class="product-detail-section">
+        <div class="container">
+            <div class="product-card-main">
+                <div class="row g-0">
+                    <!-- Product Image Gallery -->
+                    <div class="col-lg-6">
+                        <div class="product-image-gallery">
+                            <div class="main-image">
+                                <!-- Main image will be dynamically set -->
+                                <img src="images/5888828929857406810.jpg" alt="منشار كهربائي" id="mainProductImage">
+                            </div>
+                            <div class="thumbnail-images">
+                                <!-- Thumbnails -->
+                                <img src="images/5888828929857406810.jpg" alt="منشار كهربائي" class="active" onclick="changeImage(this.src)">
+                                <img src="images/TDLI1221.png" alt="منشار كهربائي - زاوية أخرى" onclick="changeImage(this.src)">
+                                <img src="images/THT1776P.png" alt="منشار كهربائي - تفاصيل" onclick="changeImage(this.src)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Information -->
+                    <div class="col-lg-6">
+                        <div class="product-info-main">
+                            <h1 class="product-title" id="productName">منشار كهربائي</h1>
+                            <p class="product-brand">TOTAL TOOLS</p>
+                            <p class="product-price" id="productPrice">1700.00 ج.م</p>
+                            
+                            <div class="product-features">
         <ul>
             <li>قوة المحرك: 1200 وات</li>
             <li>الجهد الكهربائي: 220 فولت</li>
@@ -120,44 +101,150 @@
             <li>تصميم مريح ومقبض غير قابل للانزلاق</li>
             <li>يشمل ضمان لمدة سنة</li>
         </ul>
-        <p class="fw-bold text-main">LE 1700.00</p>
-        <div class="container text-end">
-        <div class="d-flex align-items-center flex-wrap gap-3 justify-content-end mt-4">
+                            </div>
 
-            <!-- الكمية -->
-            <div class="d-flex align-items-center gap-2">
-            <label class="form-label mb-0">الكمية:</label>
-            <div class="quantity-box">
-                <button onclick="decrease()">−</button>
-                <span id="quantity">1</span>
+                            <div class="actions-container">
+                                <div class="quantity-control">
+                                    <button onclick="decrease()">-</button>
+                                    <span id="quantity" class="quantity-display">1</span>
                 <button onclick="increase()">+</button>
+                                </div>
+                                <button class="btn btn-add-to-cart" id="addToCartBtn">
+                                    <i class="bi bi-cart-plus-fill"></i>
+                                    أضف إلى السلة
+                                </button>
+                                <button class="btn btn-buy-now" id="buyNowBtn">
+                                    <i class="bi bi-wallet-fill"></i>
+                                    اشترِ الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
             </div>
             </div>
+        </div>
+    </main>
 
-            <!-- الأزرار -->
-            <button class="btn btn-buy px-4" onclick="location.href='Payment.html'">اشترِ الآن</button>
-            <button class="btn btn-cart px-4" onclick="location.href='cart.html'">أضف إلى السلة</button>
+    <!-- Suggested Products Section -->
+    <section class="suggested-products-section py-5">
+      <div class="container">
+        <h2 class="fw-bold mb-4 text-main">منتجات قد تعجبك</h2>
+        <div class="products-slider">
+          <!-- منتج -->
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/2.png" alt="منتج 1" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مثقاب كهربائي</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 1200.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/3.png" alt="منتج 2" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مطرقة كهربائية</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 950.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/4.png" alt="منتج 3" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مفتاح شد</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 400.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/5.png" alt="منتج 4" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مقص كهربائي</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 800.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="suggested-products-section py-5">
+      <div class="container">
+        <h2 class="fw-bold mb-4 text-main">منتجات مقترحة أخرى</h2>
+        <div class="products-slider">
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/6.png" alt="منتج 5" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مفك براغي</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 350.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/7.png" alt="منتج 6" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">كماشة كهربائية</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 600.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/TDLI1221.png" alt="منتج 7" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مفتاح عزم</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 700.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <a href="detail.html" class="card-img-container"><img src="images/THT15246.png" alt="منتج 8" class="card-img-top"></a>
+            <div class="card-body">
+              <a href="detail.html" class="card-title-link"><h5 class="card-title">مفتاح ربط</h5></a>
+              <p class="card-text">TOTAL TOOLS</p>
+              <p class="fw-bold text-main">LE 500.00</p>
+              <a href="#" class="btn btn-main btn-sm">أضف للسلة</a>
+            </div>
+          </div>
         </div>
 </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold mb-3 text-warning">PROTECH</h5>
+                    <p class="small">شركة PROTECH الرائدة في مجال أدوات البناء تقدم لك منتجات عالية الجودة بأسعار تنافسية.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold mb-3 text-warning">روابط مهمة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none d-block mb-2">الرئيسية</a></li>
+                        <li><a href="product.html" class="text-white text-decoration-none d-block mb-2">المنتجات</a></li>
+                        <li><a href="About.html" class="text-white text-decoration-none d-block mb-2">من نحن</a></li>
+                        <li><a href="connect.html" class="text-white text-decoration-none d-block mb-2">اتصل بنا</a></li>
+                        <li><a href="log in-up.html" class="text-white text-decoration-none d-block mb-2">انشاء حساب / تسجيل دخول</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold mb-3 text-warning">تواصل معنا</h5>
+                    <p class="mb-2"><i class="bi bi-geo-alt-fill text-warning me-2"></i>الإسكندرية، برج العرب</p>
+                    <p class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i>01289086556</p>
+                    <p class="mb-2"><i class="bi bi-envelope-fill text-warning me-2"></i>protech@gmail.com</p>
         </div>
     </div>
+            <hr class="border-light" />
+            <div class="text-center small">© 2025 جميع الحقوق محفوظة لشركة <span class="text-warning">PROTECH</span></div>
+        </div>
+    </footer>
 
-    <script>
-        let quantity = 1;
-        const quantityDisplay = document.getElementById("quantity");
-
-        function increase() {
-        quantity++;
-        quantityDisplay.innerText = quantity;
-        }
-
-        function decrease() {
-        if (quantity > 1) {
-            quantity--;
-            quantityDisplay.innerText = quantity;
-        }
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/detail.js"></script>
     </body>
     </html>
