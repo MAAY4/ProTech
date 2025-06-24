@@ -5,8 +5,9 @@
     --light: #f8f9fa;
     --dark: #2c3e50;
     --success: #2ecc71;
-    --installment: #5b287d;
+    /* --installment: #5b287d; */ /* بداية تعليق لون التقسيط الجديد */
     /* لون التقسيط الجديد */
+    /* نهاية تعليق لون التقسيط الجديد */
 }
 
 * {
@@ -511,17 +512,24 @@ body {
 }
 
 .coupon-btn:hover {
-    background: #e09a30;
+    background: var(--primary);
 }
 
-/* تأثيرات التقسيط */
+#card-details-form.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* بداية تنسيقات و تفاعلات ذر الدفع بالتقسيط */
+/*
 .installment-pulse {
     animation: pulsePurple 2s infinite;
 }
 
 @keyframes pulsePurple {
     0% {
-        box-shadow: 0 0 0 0 rgba(91, 40, 125, 0.4);
+        box-shadow: 0 0 0 0 rgba(91, 40, 125, 0.7);
     }
 
     70% {
@@ -532,6 +540,8 @@ body {
         box-shadow: 0 0 0 0 rgba(91, 40, 125, 0);
     }
 }
+*/
+/* نهاية تنسيقات و تفاعلات ذر الدفع بالتقسيط */
 
 /* تحسينات للجوال */
 @media (max-width: 768px) {
@@ -670,4 +680,205 @@ body {
     textarea {
         touch-action: manipulation;
     }
+}
+
+/* ====== Address Modal Styles ====== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 30px 20px 20px 20px;
+    border-radius: 16px;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    position: relative;
+    direction: rtl;
+}
+.close {
+    color: #aaa;
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close:hover {
+    color: var(--primary);
+}
+#address-form .form-group {
+    margin-bottom: 15px;
+}
+#address-form label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+#address-form input,
+#address-form select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-top: 2px;
+}
+#address-form input:focus,
+#address-form select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.address-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.address-details {
+    flex: 1;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.7;
+}
+.address-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-right: 10px;
+}
+.address-actions button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    font-size: 20px;
+}
+.edit-address {
+    color: var(--primary);
+    background: rgba(33,86,96,0.08);
+}
+.edit-address:hover {
+    background: rgba(33,86,96,0.18);
+    color: #fff;
+}
+.delete-address {
+    color: #e74c3c;
+    background: rgba(231,76,60,0.08);
+}
+.delete-address:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* Toast/تنبيه عصري */
+.custom-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #222;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-toast-success { background: #28a745; }
+.custom-toast-error { background: #dc3545; }
+.custom-toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  bottom: 60px;
+}
+.custom-toast i {
+  font-size: 1.3em;
+}
+
+/* نافذة تأكيد عصرية */
+.custom-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-confirm {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px 20px 24px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  animation: popIn .3s cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.custom-confirm-message {
+  font-size: 1.15rem;
+  margin-bottom: 24px;
+  color: #222;
+}
+.custom-confirm-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.btn-confirm-yes, .btn-confirm-no {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-confirm-yes {
+  background: #28a745;
+  color: #fff;
+}
+.btn-confirm-yes:hover {
+  background: #218838;
+}
+.btn-confirm-no {
+  background: #eee;
+  color: #222;
+}
+.btn-confirm-no:hover {
+  background: #ddd;
 }
